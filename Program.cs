@@ -1,4 +1,7 @@
-﻿public class Program
+﻿
+namespace Proyecto1Analizador
+{
+public class Program
 {
     static void Main(string[] args)
     {
@@ -95,4 +98,6 @@
         Console.WriteLine("ENTER para salir.");
         Console.ReadLine();
     }
+}
+
 }
