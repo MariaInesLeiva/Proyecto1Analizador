@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace Proyecto1Analizador
 {
 public class Program
