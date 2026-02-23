@@ -146,18 +146,18 @@ namespace Proyecto1Analizador
 
         private Token SiguienteToken()
         {
-            // Si hay tokens pendientes, se devuelven 
+            // Creamos una condición para devolver los tokens que se encontraban pendientes
             if (pendientes.Count > 0)
             {
                 return pendientes.Dequeue();
             }
 
-            // Si es el final del texto, se saca DEDENT oendientes.
+            // creamos una condición en donde si es el final de texto, se saca DEDENT pendientes
             if (posicion >= texto.Length)
             {
                 while (pilaIndent.Count > 1)
                 {
-                    pilaIndent.Pop(); // bajo un nivel
+                    pilaIndent.Pop(); // bajamos un nivel 
                     pendientes.Enqueue(new Token(TipoToken.DEDENT, "", linea, columna, columna));
                 }
 
@@ -169,7 +169,7 @@ namespace Proyecto1Analizador
                 return new Token(TipoToken.FP, "EOF", linea, columna, columna);
             }
 
-            // Si es el inicio de línea, indentación primero
+            // creamos una condición en donde si es el inicio de línea, indentación primero
             if (inicioLinea)
             {
                 ManejarIndentacion();
@@ -180,33 +180,33 @@ namespace Proyecto1Analizador
                 }
             }
 
-            // Ignorar espacios/tabs
+            // creamos una condición para ignorar espacios/tabs
             if (texto[posicion] == ' ' || texto[posicion] == '\t')
             {
                 ConsumirEspacios();
                 return SiguienteToken();
             }
 
-            // Ignorar comentarios #
+            // creamos una condición para ignorar comentarios #
             if (texto[posicion] == '#')
             {
                 SaltarComentario();
                 return SiguienteToken();
             }
 
-            // detectar string sin cerrar
+            // creamos una condición para detectar string sin cerrar
             if (texto[posicion] == '"')
             {
                 return EscanearString();
             }
 
-            // Probar las reglas en orden 
+            // probamos las reglas en orden 
             for (int i = 0; i < reglas.Count; i++)
             {
                 ReglaLexer regla = reglas[i];
                 Match m = regla.Patron.Match(texto, posicion);
 
-                // Match tiene que iniciar EXACTO en posicion actual
+                // creamos una condición en donde match tiene que iniciar exacto en posicion actual
                 if (m.Success && m.Index == posicion)
                 {
                     string lexema = m.Value;
@@ -214,20 +214,20 @@ namespace Proyecto1Analizador
                     int colI = columna;
                     int colF = columna + lexema.Length - 1;
 
-                    // NEWLINE es token especial
+                    // creamos una condición en donde newline es token especial
                     if (regla.Tipo == TipoToken.NEWLINE)
                     {
-                        Avanzar(lexema);             // avanza y actualiza linea/col
-                        inicioLinea = true;          // la siguiente lectura es inicio de línea
+                        Avanzar(lexema);             // llamamos al método para avanzar y actualizar línea y columna
+                        inicioLinea = true;          // definimos que la siguiente lectura es inicio de línea
                         return new Token(TipoToken.NEWLINE, "\\n", linea - 1, colI, colI);
                     }
 
-                    // ID, mas de 31 = reporto error pero se consume
+                    // creamos una condición en donde si un id tiene más de 31 carácteres, se produce error
                     if (regla.Tipo == TipoToken.ID)
                     {
                         string original = lexema;
 
-                        if (original.Length > 31)
+                        if (original.Length > 31) 
                         {
                             string recorte = original.Substring(0, 31);
                             string msg = "ID demasiado largo en linea " + linea +
@@ -235,44 +235,44 @@ namespace Proyecto1Analizador
                                          "'. Se truncó a '" + recorte + "'";
                             Errores.Add(msg);
 
-                            Avanzar(original);       // consumo todo en el texto
-                            inicioLinea = false;     // ya no estoy en inicio
+                            Avanzar(original);       // llamamos al método para consumir todo en el texto
+                            inicioLinea = false;     // definimos que ya no se está en el inicio
                             return new Token(TipoToken.ID, recorte, linea, colI, colI + 31 - 1);
                         }
 
-                        Avanzar(original);           // consumo ID normal
-                        inicioLinea = false;         // ya hubo token
+                        Avanzar(original);           // llamamos a la función y se consume ID normal
+                        inicioLinea = false;         // definidmos que ya hubo token
                         return new Token(TipoToken.ID, original, linea, colI, colF);
                     }
 
                     // Token normal
-                    Avanzar(lexema);                 // avanzo
-                    inicioLinea = false;             // ya no es inicio de línea
+                    Avanzar(lexema);                 // llamamos a la función para avanzar
+                    inicioLinea = false;             // indicamos que ya no es inicio de línea
                     return new Token(regla.Tipo, lexema, linea, colI, colF);
                 }
             }
 
-            // No hay match = error
+            // Indicamos que si el caracter no coincidió con alguna ER, el lexer no lo identifica como simbolo
             string ch = texto[posicion].ToString();
             string err = "Carácter inválido '" + ch + "' en linea " + linea + ", col " + columna;
             Errores.Add(err);
 
             Token tErr = new Token(TipoToken.ERROR, ch, linea, columna, columna);
             Avanzar(ch);                             // avanza 1 caracter
-            inicioLinea = false;                     // ya leí algo
+            inicioLinea = false;                     // indicamos que ya leyó algo
             return tErr;
         }
 
         private void ManejarIndentacion()
         {
-            // Justo se encuentra en NEWLINE o inicio del archivo
-            // Medir la identación 
-            int colInicio = columna;                  // guardo desde qué columna arranca
+            // si se encuentra en NEWLINE o inicio del archivo
+            // Medimos la identación 
+            int colInicio = columna;                  // guardamos la columna actual
 
-            int posTemp = posicion;                   // no consumo todavía
-            int count = 0;                            // indent en "espacios"
+            int posTemp = posicion;                   // no se consume todavía
+            int count = 0;                            // indent en espacios
 
-            // Contamos espacios o tabs
+            // creamos un bucle para contar espacios o tabs
             while (posTemp < texto.Length)
             {
                 char c = texto[posTemp];
@@ -286,7 +286,7 @@ namespace Proyecto1Analizador
 
                 if (c == '\t')
                 {
-                    // Tab = 4 espacios 
+                    // Si encuentra tab, suma 4 espacios 
                     count += 4;
                     posTemp++;
                     continue;
@@ -295,7 +295,7 @@ namespace Proyecto1Analizador
                 break;
             }
 
-            // Línea vacía = no cambio indent
+            // creamos una condición en donde si hay linea vacía no hay cambio indent
             if (posTemp < texto.Length)
             {
                 if (texto[posTemp] == '\n' || texto[posTemp] == '\r')
@@ -305,10 +305,10 @@ namespace Proyecto1Analizador
                 }
             }
 
-            // La línea solo tiene comentario = no cambio indent
+            // creamos una condición por si línea solo tiene comentario no haya cambio indent
             if (posTemp < texto.Length && texto[posTemp] == '#')
             {
-                // consumimos espacios iniciales para quedar en '#'
+                // consumimos espacios iniciales para quedar en #
                 ConsumirEspaciosAlInicio();
                 inicioLinea = false;
                 return;
@@ -321,7 +321,7 @@ namespace Proyecto1Analizador
             int actual = count;
             int anterior = pilaIndent.Peek();
 
-            // Si sube indentación = INDENT
+            // creamos una condición en donde si sube indentación es igual a INDENT
             if (actual > anterior)
             {
                 pilaIndent.Push(actual);
@@ -329,7 +329,7 @@ namespace Proyecto1Analizador
             }
             else if (actual < anterior)
             {
-                // Si baja indentación = sacamos DEDENTs hasta empatar
+                // si baja indentación se sacan n DEDENT hasta empatar
                 bool ok = false;
 
                 while (pilaIndent.Count > 1)
@@ -346,7 +346,7 @@ namespace Proyecto1Analizador
                     pendientes.Enqueue(new Token(TipoToken.DEDENT, "", linea, colInicio, colInicio + count));
                 }
 
-                // Ningún nivel válido = error de indentación
+                // condicón para indicar que siingún nivel válido se debe indicar error de indentación
                 if (!ok && pilaIndent.Peek() != actual)
                 {
                     string msg = "Indentación inválida en linea " + linea + " (nivel " + actual + ")";
@@ -354,13 +354,13 @@ namespace Proyecto1Analizador
                 }
             }
 
-            // Línea ya no es “inicio”
+            // indicamos que la línea ya no es inicio
             inicioLinea = false;
         }
 
         private void ConsumirEspaciosAlInicio()
         {
-            // Consume espacios/tabs y actualiza columna/posicion
+            // creamos un bucle para consumir espacios/tabs y actualizar columna/posicion
             while (posicion < texto.Length)
             {
                 char c = texto[posicion];
@@ -375,7 +375,7 @@ namespace Proyecto1Analizador
                 if (c == '\t')
                 {
                     posicion++;
-                    columna += 4; // tab = 4
+                    columna += 4; // indicamos que tab es igual a 4
                     continue;
                 }
 
@@ -385,7 +385,7 @@ namespace Proyecto1Analizador
 
         private void ConsumirEspacios()
         {
-            // Espacios/tabs normales dentro de línea
+            // creamos un bucle para ignorar los espacios/tabs normales dentro de línea
             while (posicion < texto.Length)
             {
                 char c = texto[posicion];
@@ -409,7 +409,7 @@ namespace Proyecto1Analizador
 
         private void SaltarComentario()
         {
-            // Salto desde '#' hasta antes del newline
+            // creamos un bucle para saltar desde '#' hasta antes del newline
             while (posicion < texto.Length)
             {
                 char c = texto[posicion];
@@ -426,23 +426,23 @@ namespace Proyecto1Analizador
 
         private Token EscanearString()
         {
-            // Ya sé que el char actual es '"'
-            int colI = columna;             // columna donde inicia la comilla
-            int startLine = linea;          // línea donde inicia
+            // indicamos que el lexer detecta que el carácter actual es uan comilla
+            int colI = columna;             // guardamos la columna donde inicia la comilla
+            int startLine = linea;          // guardamos la línea donde inicia
 
-            // Consumo la comilla inicial
+            // indicamos que avanza y consume la comilla inicial
             posicion++;
             columna++;
 
-            string contenido = "";          // aquí voy acumulando caracteres
-            bool cerrada = false;           // si encuentro comilla final se vuelve true
+            string contenido = "";          // indicamos que se acumulan los caracteres
+            bool cerrada = false;           // indicamos que si encontró comilla final se vuelve false
 
-            // Leo hasta encontrar otra comilla o error
+            // creamos un bucle para leer hasta encontrar otra comilla o error
             while (posicion < texto.Length)
             {
                 char c = texto[posicion];
 
-                // Si encuentro la comilla final, cierro
+                // creamos una condición que si encuentra la comilla final, cierra
                 if (c == '"')
                 {
                     cerrada = true;
@@ -451,55 +451,55 @@ namespace Proyecto1Analizador
                     break;
                 }
 
-                // Si encuentro salto de línea, es string sin cerrar
+                // creamos una condición que si encuentra un salto de línea, es string sin cerrar
                 if (c == '\n' || c == '\r')
                 {
                     break;
                 }
 
-                contenido += c;             // acumulo char
+                contenido += c;             // acumulamos el char
                 posicion++;
                 columna++;
             }
 
-            // Si no se cerró, reporto error y devuelvo ERROR
+            // creamos una condición que si no se cerró, reporto error y devuelve error
             if (!cerrada)
             {
                 string msg = "String sin cerrar en linea " + startLine + ", col " + colI;
                 Errores.Add(msg);
 
-                // Devuelvo lo que llevo para que sea visible en el .out
+                // devolvemos lo que lleva para que sea visible en el .out
                 return new Token(TipoToken.ERROR, "\"" + contenido, startLine, colI, columna);
             }
 
-            // Si sí se cerró, devuelvo token CHAR con comillas incluidas
+            // indicamos que si sí se cerró, se devuelve token char con comillas incluidas
             int colF = columna - 1;
             return new Token(TipoToken.CHAR, "\"" + contenido + "\"", startLine, colI, colF);
         }
 
         private void Avanzar(string lexema)
         {
-            // Avanza carácter por carácter para actualizar línea/columna bien
+            // creamos un bucle para vanzar carácter por carácter y actualizar línea/columna bien
             for (int i = 0; i < lexema.Length; i++)
             {
                 char c = texto[posicion];
 
                 if (c == '\n')
                 {
-                    linea++;       // subo línea
-                    columna = 1;   // reinicio columna
+                    linea++;       // pasa a la siguiente línea 
+                    columna = 1;   // se reinicia la columna
                 }
                 else if (c == '\r')
                 {
-                    // si es \r\n, igual lo trato como parte del salto
+                    // consideramos como parte del salto a \r\n
                     columna = 1;
                 }
                 else
                 {
-                    columna++;     // normal: solo incremento columna
+                    columna++;     // definimos que si no es salto de línea solo incrementa una columna
                 }
 
-                posicion++;        // siempre avanzo el índice del texto
+                posicion++;        // definimos que siempre avanza al siguiente carácter
             }
         }
     }
