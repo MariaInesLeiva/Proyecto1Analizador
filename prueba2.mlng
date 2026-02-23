@@ -1,0 +1,4 @@
+int a = 5
+int b = 3
+int resultado = a + b * 2 - 4 / 2
+Write(resultado)

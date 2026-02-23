@@ -1,0 +1,7 @@
+def sumar(int a, int b)
+    int resultado = a + b
+    return resultado
+
+int x = 5
+int y = 10
+Write(sumar(x, y))
