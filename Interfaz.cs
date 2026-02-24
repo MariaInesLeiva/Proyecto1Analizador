@@ -56,8 +56,6 @@ namespace Proyecto1Analizador
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("--------------------ERRORES LÉXICOS--------------------");
-            Console.ResetColor();
-
             Console.WriteLine("N°".PadRight(5) + "DESCRIPCIÓN");
             Console.WriteLine(new string('-', 55));
 
