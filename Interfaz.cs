@@ -7,6 +7,7 @@ namespace Proyecto1Analizador
     {
         public static void MostrarTokens(List<Token> tokens)
         {
+            MostrarBlink("-----------------------------ANALIZADOR LÉXICO-----------------------------", ConsoleColor.Blue);
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("-----------------------TOKENS-----------------------");
@@ -86,5 +87,34 @@ namespace Proyecto1Analizador
             else
                 Console.ForegroundColor = ConsoleColor.White; // ops/símbolos
         }
+        private static void MostrarBlink(string texto, ConsoleColor color)
+        {
+            int left = 0;
+            int top = Console.CursorTop;
+
+            for (int i = 0; i < 6; i++) // cantidad de parpadeos
+            {
+                Console.SetCursorPosition(left, top);
+                
+                    if (i % 2 == 0)
+                    {
+                    Console.ForegroundColor = color;
+                    Console.Write(texto);
+                    }
+                    else
+                    {
+                    Console.Write(new string(' ', texto.Length));
+                    }
+
+                System.Threading.Thread.Sleep(250);
+            }
+
+            // Lo deja fijo al final
+            Console.SetCursorPosition(left, top);
+            Console.ForegroundColor = color;
+            Console.WriteLine(texto);
+            Console.ResetColor();
+        }
+        
     }
 }
