@@ -1,0 +1,23 @@
+# Programa de prueba completo
+
+def calcular(int a, int b)
+    int resultado = a + b
+    if (resultado >= 10)
+        Write("Mayor o igual a 10")
+    else
+        Write("Menor a 10")
+    return resultado
+
+int x = 5
+int y = 7
+
+int total = calcular(x, y)
+
+while (total > 0)
+    Write(total)
+    total = total - 1
+
+# Ahora errores intencionales
+int numero = 3.4.5
+Write("Texto sin cerrar)
+valor$ = 10

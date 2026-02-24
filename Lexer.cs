@@ -325,7 +325,7 @@ namespace Proyecto1Analizador
             if (actual > anterior)
             {
                 pilaIndent.Push(actual);
-                pendientes.Enqueue(new Token(TipoToken.INDENT, "", linea, colInicio, colInicio + count));
+                pendientes.Enqueue(new Token(TipoToken.INDENT, "", linea, colInicio, colInicio));
             }
             else if (actual < anterior)
             {
@@ -343,7 +343,7 @@ namespace Proyecto1Analizador
                     }
 
                     pilaIndent.Pop();
-                    pendientes.Enqueue(new Token(TipoToken.DEDENT, "", linea, colInicio, colInicio + count));
+                    pendientes.Enqueue(new Token(TipoToken.DEDENT, "", linea, colInicio, colInicio));
                 }
 
                 // condicón para indicar que siingún nivel válido se debe indicar error de indentación
