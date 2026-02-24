@@ -8,7 +8,8 @@ namespace Proyecto1Analizador
         public static void MostrarTokens(List<Token> tokens)
         {
             Console.WriteLine();
-            Console.WriteLine("------------------TOKENS------------------");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("-----------------------TOKENS-----------------------");
             Console.WriteLine();
 
             Console.WriteLine(
@@ -52,7 +53,7 @@ namespace Proyecto1Analizador
 
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("------------------ERRORES LÉXICOS------------------");
+            Console.WriteLine("--------------------ERRORES LÉXICOS--------------------");
             Console.ResetColor();
 
             Console.WriteLine("N°".PadRight(5) + "DESCRIPCIÓN");
@@ -83,7 +84,7 @@ namespace Proyecto1Analizador
             else if (tipo == TipoToken.NEWLINE || tipo == TipoToken.INDENT || tipo == TipoToken.DEDENT)
                 Console.ForegroundColor = ConsoleColor.DarkGray;
             else
-                Console.ForegroundColor = ConsoleColor.Magenta; // ops/símbolos
+                Console.ForegroundColor = ConsoleColor.White; // ops/símbolos
         }
     }
 }
