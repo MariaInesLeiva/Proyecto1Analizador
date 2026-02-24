@@ -57,6 +57,9 @@ public class Program
         Lexer lexer = new Lexer(codigo);
         List<Token> tokens = lexer.Tokenizar();
 
+        // Mostramos los tokens en consola de forma visual
+        Interfaz.Mostrar(tokens);
+
         // Creamos la ruta de salida .out
         string rutaSalida = Path.ChangeExtension(rutaEntrada, ".out");
 
