@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Proyecto1Analizador
 {
@@ -7,7 +8,7 @@ namespace Proyecto1Analizador
     {
         public static void MostrarTokens(List<Token> tokens)
         {
-            MostrarBlink("-----------------------------ANALIZADOR LÉXICO-----------------------------", ConsoleColor.Blue);
+            MostrarAnimacion("-----------------------------ANALIZADOR LÉXICO-----------------------------", ConsoleColor.Blue);
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("-----------------------TOKENS-----------------------");
@@ -87,40 +88,19 @@ namespace Proyecto1Analizador
             else
                 Console.ForegroundColor = ConsoleColor.White; // ops/símbolos
         }
-        private static void MostrarBlink(string texto, ConsoleColor color)
+
+        private static void MostrarAnimacion(string texto, ConsoleColor color)
         {
-            int left = 0;
-            int top = Console.CursorTop;
+            Console.ForegroundColor = color;
 
-            bool visible = true;
-
-            while (!Console.KeyAvailable) // sigue parpadeando hasta que presiones una tecla
+            foreach (char c in texto)
             {
-                Console.SetCursorPosition(left, top);
+                Console.Write(c);
+                Thread.Sleep(120); // pausa entre cada letra
+            }
 
-                if (visible)
-                {
-                    Console.ForegroundColor = color;
-                    Console.Write(texto);
-                }
-                else
-                {
-                     Console.Write(new string(' ', texto.Length));
-                }
-
-            visible = !visible;
-            Thread.Sleep(400);
-             }
-
-         // Limpia la tecla presionada
-         Console.ReadKey(true);
-
-         // Lo deja visible al final
-         Console.SetCursorPosition(left, top);
-         Console.ForegroundColor = color;
-         Console.WriteLine(texto);
-         Console.ResetColor();
+            Console.ResetColor();
+            Console.WriteLine(); // salto de línea al final
         }
-        
     }
 }
