@@ -1,0 +1,26 @@
+# Prueba de estrés del lexer (indent + ids + operadores)
+
+int a = 1
+int b = 2
+
+if (a != b)
+    Write("distintos")
+    a = a + 1
+else
+    Write("iguales")
+
+while (a <= 5)
+    Write(a)
+    a = a + 1
+
+# ID demasiado largo (debe truncarse a 31 y reportar error)
+int identificadorDemasiadoLargoooooo123456789 = 9
+
+# Tabs vs espacios (aquí pongo 1 TAB al inicio de línea)
+while (b < 4)
+	Write(b)
+	b = b + 1
+
+# Carácter inválido (debe dar ERROR y seguir)
+a = a @ 3
+Write(a)

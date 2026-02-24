@@ -11,17 +11,9 @@ namespace Proyecto1Analizador
             // Guardamos la ruta del archivo de entrada
             string rutaEntrada = "";
 
-            // Se toma el archivo de entrada como argumento
-            if (args != null && args.Length > 0)
-            {
-                rutaEntrada = args[0];
-            }
-            else
-            {
-                // Si no, se lo pedimos en consola
-                Console.Write("Ingrese la ruta del archivo de entrada: ");
-                rutaEntrada = Console.ReadLine();
-            }
+            // Lo pedimos en consola
+            Console.Write("Ingrese la ruta del archivo de entrada: ");
+            rutaEntrada = Console.ReadLine();
 
             // Validaciones
             if (string.IsNullOrWhiteSpace(rutaEntrada))
