@@ -59,7 +59,7 @@ namespace Proyecto1Analizador
             Lexer lexer = new Lexer(codigo);
             List<Token> tokens = lexer.Tokenizar();
 
-            // ======= MOSTRAR EN CONSOLA (VISUAL) =======
+            // Mostramos en la consola las animaciones 
             Interfaz.MostrarTokens(tokens);
             Interfaz.MostrarErrores(lexer.Errores);
 

@@ -79,12 +79,12 @@ namespace Proyecto1Analizador
                 Console.ForegroundColor = ConsoleColor.Cyan;
             else if (tipo == TipoToken.INT || tipo == TipoToken.FLOAT)
                 Console.ForegroundColor = ConsoleColor.Yellow;
-            else if (tipo != null && tipo.StartsWith("PR")) // reservadas
+            else if (tipo != null && tipo.StartsWith("PR")) 
                 Console.ForegroundColor = ConsoleColor.Green;
             else if (tipo == TipoToken.NEWLINE || tipo == TipoToken.INDENT || tipo == TipoToken.DEDENT)
                 Console.ForegroundColor = ConsoleColor.DarkGray;
             else
-                Console.ForegroundColor = ConsoleColor.White; // ops/símbolos
+                Console.ForegroundColor = ConsoleColor.White; 
         }
 
         private static void MostrarAnimacion(string texto, ConsoleColor color)
@@ -94,11 +94,11 @@ namespace Proyecto1Analizador
             foreach (char c in texto)
             {
                 Console.Write(c);
-                Thread.Sleep(120); // pausa entre cada letra
+                Thread.Sleep(120); 
             }
 
             Console.ResetColor();
-            Console.WriteLine(); // salto de línea al final
+            Console.WriteLine(); 
         }
     }
 }
