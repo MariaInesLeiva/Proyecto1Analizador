@@ -5,10 +5,10 @@ namespace Proyecto1Analizador
 {
     public static class Interfaz
     {
-        public static void Mostrar(List<Token> tokens)
+        public static void MostrarTokens(List<Token> tokens)
         {
             Console.WriteLine();
-            Console.WriteLine("-----------TOKENS----------");
+            Console.WriteLine("------------------TOKENS------------------");
             Console.WriteLine();
 
             Console.WriteLine(
@@ -23,21 +23,50 @@ namespace Proyecto1Analizador
             {
                 PonerColor(t.Tipo);
 
-                Console.Write(
-                    t.Tipo.PadRight(15)
-                );
-
+                Console.Write(t.Tipo.PadRight(15));
                 Console.ResetColor();
 
-                Console.Write(
-                    t.Lexema.PadRight(20) +
+                string lex = (t.Lexema ?? "").Replace("\t", "\\t");
+                if (lex.Length > 18) lex = lex.Substring(0, 15) + "...";
+                lex = lex.PadRight(20);
+
+                Console.WriteLine(
+                    lex +
                     $"({t.Linea},{t.ColumnaI}-{t.ColumnaF})"
                 );
-
-                Console.WriteLine();
             }
 
             Console.ResetColor();
+            Console.WriteLine();
+        }
+
+        public static void MostrarErrores(List<string> errores)
+        {
+            if (errores == null || errores.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\nSin errores léxicos.");
+                Console.ResetColor();
+                return;
+            }
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("------------------ERRORES LÉXICOS------------------");
+            Console.ResetColor();
+
+            Console.WriteLine("N°".PadRight(5) + "DESCRIPCIÓN");
+            Console.WriteLine(new string('-', 55));
+
+            for (int i = 0; i < errores.Count; i++)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write((i + 1).ToString().PadRight(5));
+                Console.ResetColor();
+
+                Console.WriteLine(errores[i]);
+            }
+
             Console.WriteLine();
         }
 
@@ -45,23 +74,16 @@ namespace Proyecto1Analizador
         {
             if (tipo == TipoToken.ERROR)
                 Console.ForegroundColor = ConsoleColor.Red;
-
             else if (tipo == TipoToken.ID)
                 Console.ForegroundColor = ConsoleColor.Cyan;
-
             else if (tipo == TipoToken.INT || tipo == TipoToken.FLOAT)
                 Console.ForegroundColor = ConsoleColor.Yellow;
-
-            else if (tipo.StartsWith("PR"))   // palabras reservadas
+            else if (tipo != null && tipo.StartsWith("PR")) // reservadas
                 Console.ForegroundColor = ConsoleColor.Green;
-
-            else if (tipo == TipoToken.NEWLINE ||
-                     tipo == TipoToken.INDENT ||
-                     tipo == TipoToken.DEDENT)
+            else if (tipo == TipoToken.NEWLINE || tipo == TipoToken.INDENT || tipo == TipoToken.DEDENT)
                 Console.ForegroundColor = ConsoleColor.DarkGray;
-
-            else // operadores y símbolos
-                Console.ForegroundColor = ConsoleColor.Magenta;
+            else
+                Console.ForegroundColor = ConsoleColor.Magenta; // ops/símbolos
         }
     }
 }
