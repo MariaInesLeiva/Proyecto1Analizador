@@ -92,28 +92,34 @@ namespace Proyecto1Analizador
             int left = 0;
             int top = Console.CursorTop;
 
-            for (int i = 0; i < 6; i++) // cantidad de parpadeos
+            bool visible = true;
+
+            while (!Console.KeyAvailable) // sigue parpadeando hasta que presiones una tecla
             {
                 Console.SetCursorPosition(left, top);
-                
-                    if (i % 2 == 0)
-                    {
+
+                if (visible)
+                {
                     Console.ForegroundColor = color;
                     Console.Write(texto);
-                    }
-                    else
-                    {
-                    Console.Write(new string(' ', texto.Length));
-                    }
+                }
+                else
+                {
+                     Console.Write(new string(' ', texto.Length));
+                }
 
-                System.Threading.Thread.Sleep(250);
-            }
+            visible = !visible;
+            Thread.Sleep(400);
+             }
 
-            // Lo deja fijo al final
-            Console.SetCursorPosition(left, top);
-            Console.ForegroundColor = color;
-            Console.WriteLine(texto);
-            Console.ResetColor();
+         // Limpia la tecla presionada
+         Console.ReadKey(true);
+
+         // Lo deja visible al final
+         Console.SetCursorPosition(left, top);
+         Console.ForegroundColor = color;
+         Console.WriteLine(texto);
+         Console.ResetColor();
         }
         
     }
