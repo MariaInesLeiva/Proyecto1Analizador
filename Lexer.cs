@@ -232,7 +232,7 @@ namespace Proyecto1Analizador
                             string recorte = original.Substring(0, 31);
                             string msg = "ID demasiado largo en linea " + linea +
                                          ", col " + colI + ": '" + original +
-                                         "'. Se truncó a '" + recorte + "'";
+                                         "'. Se recortó y quedó como: '" + recorte + "'";
                             Errores.Add(msg);
 
                             Avanzar(original);       // llamamos al método para consumir todo en el texto
@@ -346,7 +346,7 @@ namespace Proyecto1Analizador
                     pendientes.Enqueue(new Token(TipoToken.DEDENT, "", linea, colInicio, colInicio));
                 }
 
-                // condicón para indicar que siingún nivel válido se debe indicar error de indentación
+                // condición para indicar que si ningún nivel es válido se debe indicar error de indentación
                 if (!ok && pilaIndent.Peek() != actual)
                 {
                     string msg = "Indentación inválida en linea " + linea + " (nivel " + actual + ")";
@@ -479,7 +479,7 @@ namespace Proyecto1Analizador
 
         private void Avanzar(string lexema)
         {
-            // creamos un bucle para vanzar carácter por carácter y actualizar línea/columna bien
+            // creamos un bucle para avanzar carácter por carácter y actualizar línea/columna bien
             for (int i = 0; i < lexema.Length; i++)
             {
                 char c = texto[posicion];
