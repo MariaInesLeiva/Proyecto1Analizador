@@ -24,6 +24,12 @@ namespace Proyecto1Analizador
             {
                 simbolo = tokenActual.Tipo; 
             }
+
+            string mensaje = "Linea " + tokenActual.Linea +
+                             ", columna " + tokenActual.ColumnaI +
+                             ", simbolo '" + simbolo +
+                             "', Error: " + descripcion;
+            errores.Add(mensaje);
         }
 
     }
