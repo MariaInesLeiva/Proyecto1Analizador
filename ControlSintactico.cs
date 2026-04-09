@@ -12,5 +12,19 @@ namespace Proyecto1Analizador
             tokenActual = null;
         }
 
+        public void AgregarError(string descripcion) //registra los errores sintácticos
+        {
+            if (tokenActual == null)
+            {
+                errores.Add("Error: " + descripcion);
+                return;
+            }
+            string simbolo = tokenActual.Lexema;
+            if (string.IsNullOrEmpty(simbolo))
+            {
+                simbolo = tokenActual.Tipo;
+            }
+        }
+
     }
 }
