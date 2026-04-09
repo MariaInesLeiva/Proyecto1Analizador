@@ -22,7 +22,7 @@ namespace Proyecto1Analizador
             string simbolo = tokenActual.Lexema;
             if (string.IsNullOrEmpty(simbolo))
             {
-                simbolo = tokenActual.Tipo;
+                simbolo = tokenActual.Tipo; 
             }
         }
 
