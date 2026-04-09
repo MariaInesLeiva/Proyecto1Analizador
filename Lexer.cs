@@ -95,7 +95,6 @@ namespace Proyecto1Analizador
             reglas.Add(new ReglaLexer(TipoToken.PRRETURN, @"\breturn\b"));
 
             //Or/and/not
-            // Operadores lógicos
             reglas.Add(new ReglaLexer(TipoToken.OR, @"\bor\b"));
             reglas.Add(new ReglaLexer(TipoToken.AND, @"\band\b"));
             reglas.Add(new ReglaLexer(TipoToken.NOT, @"\bnot\b"));
