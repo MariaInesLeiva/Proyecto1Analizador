@@ -49,6 +49,13 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "YaccLexTools.Gppg": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.5.3.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

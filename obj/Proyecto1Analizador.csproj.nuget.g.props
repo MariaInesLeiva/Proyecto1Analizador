@@ -13,4 +13,7 @@
     <SourceRoot Include="C:\Users\jenfe\.nuget\packages\" />
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgYaccLexTools_Gppg Condition=" '$(PkgYaccLexTools_Gppg)' == '' ">C:\Users\jenfe\.nuget\packages\yacclextools.gppg\1.5.3.1</PkgYaccLexTools_Gppg>
+  </PropertyGroup>
 </Project>

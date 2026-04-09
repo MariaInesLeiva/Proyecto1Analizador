@@ -1,11 +1,79 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net8.0": {
+      "YaccLexTools.Gppg/1.5.3.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/_._": {}
+        },
+        "runtime": {
+          "lib/net8.0/_._": {}
+        },
+        "build": {
+          "build/net8.0/YaccLexTools.Gppg.targets": {}
+        },
+        "buildMultiTargeting": {
+          "buildCrossTargeting/YaccLexTools.Gppg.targets": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "YaccLexTools.Gppg/1.5.3.1": {
+      "sha512": "4g4WFQhLpg7L8u05G3oysBISLCpp14jT2K9aiLGuz+HOySVaizfcVHEyHaDVJ424MLJr8gDkWGrvMdBgdHugFw==",
+      "type": "package",
+      "path": "yacclextools.gppg/1.5.3.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "build/net462/YaccLexTools.Gppg.targets",
+        "build/net6.0/YaccLexTools.Gppg.targets",
+        "build/net8.0/YaccLexTools.Gppg.targets",
+        "build/net9.0/YaccLexTools.Gppg.targets",
+        "build/netstandard2.0/YaccLexTools.Gppg.targets",
+        "buildCrossTargeting/YaccLexTools.Gppg.targets",
+        "docs/README.md",
+        "images/Icon.png",
+        "lib/net462/_._",
+        "lib/net6.0/_._",
+        "lib/net8.0/_._",
+        "lib/net9.0/_._",
+        "lib/netstandard2.0/_._",
+        "tools/RunGppg.targets",
+        "tools/net462/GPPGcopyright.rtf",
+        "tools/net462/Gppg.exe",
+        "tools/net462/Gppg.exe.config",
+        "tools/net462/Gppg.pdb",
+        "tools/net6.0/GPPGcopyright.rtf",
+        "tools/net6.0/Gppg.deps.json",
+        "tools/net6.0/Gppg.dll",
+        "tools/net6.0/Gppg.exe",
+        "tools/net6.0/Gppg.pdb",
+        "tools/net6.0/Gppg.runtimeconfig.json",
+        "tools/net8.0/GPPGcopyright.rtf",
+        "tools/net8.0/Gppg.deps.json",
+        "tools/net8.0/Gppg.dll",
+        "tools/net8.0/Gppg.exe",
+        "tools/net8.0/Gppg.pdb",
+        "tools/net8.0/Gppg.runtimeconfig.json",
+        "tools/net9.0/GPPGcopyright.rtf",
+        "tools/net9.0/Gppg.deps.json",
+        "tools/net9.0/Gppg.dll",
+        "tools/net9.0/Gppg.exe",
+        "tools/net9.0/Gppg.pdb",
+        "tools/net9.0/Gppg.runtimeconfig.json",
+        "yacclextools.gppg.1.5.3.1.nupkg.sha512",
+        "yacclextools.gppg.nuspec"
+      ]
+    }
+  },
   "projectFileDependencyGroups": {
-    "net8.0": []
+    "net8.0": [
+      "YaccLexTools.Gppg >= 1.5.3.1"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\jenfe\\.nuget\\packages\\": {},
@@ -56,6 +124,13 @@
     "frameworks": {
       "net8.0": {
         "targetAlias": "net8.0",
+        "dependencies": {
+          "YaccLexTools.Gppg": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[1.5.3.1, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",
