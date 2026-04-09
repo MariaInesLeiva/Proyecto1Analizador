@@ -1,0 +1,154 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0": {
+      "YaccLexTools.Gppg/1.5.3.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/_._": {}
+        },
+        "runtime": {
+          "lib/net8.0/_._": {}
+        },
+        "build": {
+          "build/net8.0/YaccLexTools.Gppg.targets": {}
+        },
+        "buildMultiTargeting": {
+          "buildCrossTargeting/YaccLexTools.Gppg.targets": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "YaccLexTools.Gppg/1.5.3.1": {
+      "sha512": "4g4WFQhLpg7L8u05G3oysBISLCpp14jT2K9aiLGuz+HOySVaizfcVHEyHaDVJ424MLJr8gDkWGrvMdBgdHugFw==",
+      "type": "package",
+      "path": "yacclextools.gppg/1.5.3.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "build/net462/YaccLexTools.Gppg.targets",
+        "build/net6.0/YaccLexTools.Gppg.targets",
+        "build/net8.0/YaccLexTools.Gppg.targets",
+        "build/net9.0/YaccLexTools.Gppg.targets",
+        "build/netstandard2.0/YaccLexTools.Gppg.targets",
+        "buildCrossTargeting/YaccLexTools.Gppg.targets",
+        "docs/README.md",
+        "images/Icon.png",
+        "lib/net462/_._",
+        "lib/net6.0/_._",
+        "lib/net8.0/_._",
+        "lib/net9.0/_._",
+        "lib/netstandard2.0/_._",
+        "tools/RunGppg.targets",
+        "tools/net462/GPPGcopyright.rtf",
+        "tools/net462/Gppg.exe",
+        "tools/net462/Gppg.exe.config",
+        "tools/net462/Gppg.pdb",
+        "tools/net6.0/GPPGcopyright.rtf",
+        "tools/net6.0/Gppg.deps.json",
+        "tools/net6.0/Gppg.dll",
+        "tools/net6.0/Gppg.exe",
+        "tools/net6.0/Gppg.pdb",
+        "tools/net6.0/Gppg.runtimeconfig.json",
+        "tools/net8.0/GPPGcopyright.rtf",
+        "tools/net8.0/Gppg.deps.json",
+        "tools/net8.0/Gppg.dll",
+        "tools/net8.0/Gppg.exe",
+        "tools/net8.0/Gppg.pdb",
+        "tools/net8.0/Gppg.runtimeconfig.json",
+        "tools/net9.0/GPPGcopyright.rtf",
+        "tools/net9.0/Gppg.deps.json",
+        "tools/net9.0/Gppg.dll",
+        "tools/net9.0/Gppg.exe",
+        "tools/net9.0/Gppg.pdb",
+        "tools/net9.0/Gppg.runtimeconfig.json",
+        "yacclextools.gppg.1.5.3.1.nupkg.sha512",
+        "yacclextools.gppg.nuspec"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0": [
+      "YaccLexTools.Gppg >= 1.5.3.1"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\jenfe\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\jenfe\\Documents\\Proyecto1Analizador\\Proyecto1Analizador.csproj",
+      "projectName": "Proyecto1Analizador",
+      "projectPath": "C:\\Users\\jenfe\\Documents\\Proyecto1Analizador\\Proyecto1Analizador.csproj",
+      "packagesPath": "C:\\Users\\jenfe\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jenfe\\Documents\\Proyecto1Analizador\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\jenfe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
+    },
+    "frameworks": {
+      "net8.0": {
+        "targetAlias": "net8.0",
+        "dependencies": {
+          "YaccLexTools.Gppg": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[1.5.3.1, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

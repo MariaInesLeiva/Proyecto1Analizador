@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "REPhE8ECJ7c=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\jenfe\\Documents\\Proyecto1Analizador\\Proyecto1Analizador.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jenfe\\.nuget\\packages\\yacclextools.gppg\\1.5.3.1\\yacclextools.gppg.1.5.3.1.nupkg.sha512"
+  ],
+  "logs": []
+}
