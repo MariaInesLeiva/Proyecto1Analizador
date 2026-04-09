@@ -4,7 +4,7 @@ namespace Proyecto1Analizador
     {
         PRINT = 257,    
         PRFLOAT,  
-        PRCHAR,  
+        PRCHAR, 
         PRBOOL,
 
         // Funciones
