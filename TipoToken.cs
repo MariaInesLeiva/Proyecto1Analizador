@@ -10,7 +10,8 @@ namespace Proyecto1Analizador
         public const string PRBOOL = "PRBOOL";      
 
         // Funciones
-        public const string PRIF = "PRIF";       
+        public const string PRIF = "PRIF";  
+        public const string PRELIF = "PRELIF";
         public const string PRELSE = "PRELSE";     
         public const string PRWHILE = "PRWHILE";    
         public const string PRDEF = "PRDEF";        
@@ -27,6 +28,12 @@ namespace Proyecto1Analizador
         public const string BOOL = "BOOL";          
         public const string ID = "ID";             
 
+        // Operadores or/and/not 
+        public const string OR = "OR";
+        public const string AND = "AND";
+        public const string NOT = "NOT";
+        
+        
         // Operadores
         public const string SUM = "SUM";           
         public const string RESTA = "RESTA";       

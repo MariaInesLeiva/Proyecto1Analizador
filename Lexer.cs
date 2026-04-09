@@ -84,6 +84,7 @@ namespace Proyecto1Analizador
             reglas.Add(new ReglaLexer(TipoToken.PRBOOL, @"\bbool\b"));
 
             reglas.Add(new ReglaLexer(TipoToken.PRIF, @"\bif\b"));
+            reglas.Add(new ReglaLexer(TipoToken.PRELIF, @"\belif\b"));
             reglas.Add(new ReglaLexer(TipoToken.PRELSE, @"\belse\b"));
             reglas.Add(new ReglaLexer(TipoToken.PRWHILE, @"\bwhile\b"));
 
@@ -92,6 +93,12 @@ namespace Proyecto1Analizador
 
             reglas.Add(new ReglaLexer(TipoToken.PRDEF, @"\bdef\b"));
             reglas.Add(new ReglaLexer(TipoToken.PRRETURN, @"\breturn\b"));
+
+            //Or/and/not
+            // Operadores lógicos
+            reglas.Add(new ReglaLexer(TipoToken.OR, @"\bor\b"));
+            reglas.Add(new ReglaLexer(TipoToken.AND, @"\band\b"));
+            reglas.Add(new ReglaLexer(TipoToken.NOT, @"\bnot\b"));
 
             // BOOL 
             reglas.Add(new ReglaLexer(TipoToken.BOOL, @"\btrue\b|\bfalse\b"));
@@ -470,6 +477,14 @@ namespace Proyecto1Analizador
 
                 // devolvemos lo que lleva para que sea visible en el .out
                 return new Token(TipoToken.ERROR, "\"" + contenido, startLine, colI, columna);
+            }
+
+            if (!Regex.IsMatch(contenido, @"^[a-zA-Z0-9 ]*$"))
+            {
+                string msg = "CHAR inválido en linea " + startLine + ", col " + colI +
+                            ": solo se permiten letras, números y espacios";
+                Errores.Add(msg);
+                return new Token(TipoToken.ERROR, "\"" + contenido + "\"", startLine, colI, columna - 1);
             }
 
             // indicamos que si sí se cerró, se devuelve token char con comillas incluidas
