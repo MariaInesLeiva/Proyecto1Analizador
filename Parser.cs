@@ -321,6 +321,7 @@ public partial class Parser: ShiftReduceParser<int, LexLocation>
     else
         return CharToString((char)terminal);
   }
+}
 
 #line 217 "minilang.y"
 
@@ -329,7 +330,7 @@ public partial class Parser
     private LectorTokens lector;
     private ControlSintactico control;
 
-    public Parser(LectorTokens lectorEntrada, ControlSintactico controlEntrada)
+    public Parser(LectorTokens lectorEntrada, ControlSintactico controlEntrada) : base(lectorEntrada)
     {
         lector = lectorEntrada;
         control = controlEntrada;
@@ -346,5 +347,4 @@ public partial class Parser
     }
 }
 #line default
-}
 }
