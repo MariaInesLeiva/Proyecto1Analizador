@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.Marshalling;
 
 namespace Proyecto1Analizador
 {
@@ -50,6 +51,37 @@ namespace Proyecto1Analizador
             // Creamos el lexer y tokenizamos el código
             Lexer lexer = new Lexer(codigo);
             List<Token> tokens = lexer.Tokenizar();
+
+            ControlSintactico control = new ControlSintactico();
+            LectorTokens lector = new LectorTokens(tokens, control);
+            Parser parser = new Parser(lector, control);
+
+            try
+            {
+                parser.Parse(); //se ejecuta el análisis sintáctico
+            }
+
+            catch(Exception ex) //Se manejan los errores
+            {
+                control.AgregarError("Error durante el análisis: "+ex.Message);
+            }
+
+            bool hayLexicos=lexer.Errores.Count > 0; //valida los errores léxicos
+            bool haySintacticos = control.errores.Count >0; //valida los errores sintácticos
+
+            if(!hayLexicos && !haySintacticos) //condición para imprimir el resultado
+            {
+                Console.WriteLine ("OK");
+            
+            }
+            else
+            {
+                Console.WriteLine ("\n----- ERRORES LÉXICOS -----");
+                for(int i = 0; i<control.errores.Count; i++)
+                {
+                    Console.WriteLine (control.errores[i]);
+                }
+            }
 
             // Mostramos en la consola las animaciones 
             Interfaz.MostrarTokens(tokens);
