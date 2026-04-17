@@ -3,10 +3,6 @@
 %tokentype Tokens
 %start S
 
-%{
-    using System;
-%}
-
 %token PRINT PRFLOAT PRCHAR PRBOOL
 %token PRIF PRELIF PRELSE PRWHILE PRDEF PRRETURN
 %token PRREAD PRWRITE
