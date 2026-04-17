@@ -27,7 +27,7 @@ namespace Proyecto1Analizador
                 // Si ya no hay más tokens → EOF
                 tokenActual = new Token(TipoToken.FP, "EOF", 0, 0, 0);
                 control. tokenActual = tokenActual;
-                return (int)listaTokens.FP;
+                return (int)Tokens.FP;
             }
 
             tokenActual = listaTokens[posicion];
