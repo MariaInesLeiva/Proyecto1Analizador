@@ -7,11 +7,8 @@ namespace Proyecto1Analizador
         private List<Token> listaTokens;
         private ControlSintactico control;
         private int posicion;
-        public Token tokenActual
-        {
-            get;
-            private set;
-        }
+
+        public Token tokenActual { get; private set; }
 
         public LectorTokens(List<Token> tokensEntrada, ControlSintactico controlEntrada)
         {
@@ -22,20 +19,25 @@ namespace Proyecto1Analizador
 
         public int yylex()
         {
+            // Si ya no hay más tokens → EOF
             if (posicion >= listaTokens.Count)
-            {   
-                // Si ya no hay más tokens → EOF
+            {
                 tokenActual = new Token(TipoToken.FP, "EOF", 0, 0, 0);
-                control. tokenActual = tokenActual;
+
+                // Guardamos el token actual para manejo de errores
+                control.tokenActual = tokenActual;
+
                 return (int)Tokens.FP;
             }
 
+            // Obtenemos el siguiente token
             tokenActual = listaTokens[posicion];
             posicion++;
 
-            // Actualizamos el token actual para los errores
+            // Actualizamos el token actual en el control
             control.tokenActual = tokenActual;
 
+            // Convertimos de TipoToken → Tokens (GPPG)
             switch (tokenActual.Tipo)
             {
                 // Tipos
@@ -98,10 +100,10 @@ namespace Proyecto1Analizador
                 case TipoToken.ERROR: return (int)Tokens.ERROR;
 
                 default:
+                    // Error controlado
                     control.AgregarError("token no reconocido por el parser");
                     return (int)Tokens.ERROR;
             }
-
         }
     }
 }
