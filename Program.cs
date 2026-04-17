@@ -52,10 +52,9 @@ namespace Proyecto1Analizador
             Lexer lexer = new Lexer(codigo);
             List<Token> tokens = lexer.Tokenizar();
 
-            ParserContext contexto = new ParserContext();
-            LexerAdapter acanner = new LexerAdapter(tokens, contexto); //los tokens se convierten legibles para el parser
-
-            Parser = new Parser (scanner, contexto); // se crea el parser
+            ControlSintactico control = new ControlSintactico();
+            LectorTokens lector = new LectorTokens(tokens, control);
+            Parser parser = new Parser(lector, control);
 
             try
             {
@@ -64,11 +63,11 @@ namespace Proyecto1Analizador
 
             catch(Exception ex) //Se manejan los errores
             {
-                contexto.ReportarError("Error durante el análisis: "+ex.Message);
+                control.AgregarError("Error durante el análisis: "+ex.Message);
             }
 
             bool hayLexicos=lexer.Errores.Count > 0; //valida los errores léxicos
-            bool haySintacticos = contexto.ErroresSintacticos.Count >0; //valida los errores sintácticos
+            bool haySintacticos = control.errores.Count >0; //valida los errores sintácticos
 
             if(!hayLexicos && !haySintacticos) //condición para imprimir el resultado
             {
@@ -78,9 +77,9 @@ namespace Proyecto1Analizador
             else
             {
                 Console.WriteLine ("\n----- ERRORES LÉXICOS -----");
-                for(int i = 0; i<contexto.ErroresSintacticos.Count; i++)
+                for(int i = 0; i<control.errores.Count; i++)
                 {
-                    Console.WriteLine (contexto.ErroresSintacticos[i]);
+                    Console.WriteLine (control.errores[i]);
                 }
             }
 
