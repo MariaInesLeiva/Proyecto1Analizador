@@ -8,8 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StarodubOleg.GPPG.Runtime" Version="0.1.0-alpha1-2" />
-    <PackageReference Include="YaccLexTools.Gppg" Version="1.5.3.1" PrivateAssets="all" />
+    <PackageReference Include="Springcomp.GPPG.Runtime" Version="1.2.5" />
   </ItemGroup>
 
 </Project>
