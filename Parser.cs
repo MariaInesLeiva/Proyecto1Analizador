@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.CodeDom.Compiler;
 using System.Globalization;
 using System.Text;
-using StarodubOleg.GPPG.Runtime;
+using Springcomp.GPPG.Runtime;
 
 namespace Proyecto1Analizador
 {

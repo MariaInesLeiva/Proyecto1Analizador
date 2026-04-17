@@ -1,0 +1,111 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0": {
+      "Springcomp.GPPG.Runtime/1.2.5": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/Springcomp.GPPG.Runtime.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Springcomp.GPPG.Runtime.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Springcomp.GPPG.Runtime/1.2.5": {
+      "sha512": "g3etVX84eEvFxMccM/RErZL5tBfkBpEOb0sxJbeeZkRkvqTht+NBky+QZ3kfgZqWNWLLrXnBgRitGpJ0WiGanA==",
+      "type": "package",
+      "path": "springcomp.gppg.runtime/1.2.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "License.md",
+        "lib/netstandard2.1/Springcomp.GPPG.Runtime.dll",
+        "springcomp.gppg.runtime.1.2.5.nupkg.sha512",
+        "springcomp.gppg.runtime.nuspec"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0": [
+      "Springcomp.GPPG.Runtime >= 1.2.5"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\manes\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\manes\\OneDrive\\Escritorio\\Universidad\\Quinto Semestre\\Proyecto1Analizador\\Proyecto1Analizador.csproj",
+      "projectName": "Proyecto1Analizador",
+      "projectPath": "C:\\Users\\manes\\OneDrive\\Escritorio\\Universidad\\Quinto Semestre\\Proyecto1Analizador\\Proyecto1Analizador.csproj",
+      "packagesPath": "C:\\Users\\manes\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\manes\\OneDrive\\Escritorio\\Universidad\\Quinto Semestre\\Proyecto1Analizador\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\manes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      }
+    },
+    "frameworks": {
+      "net8.0": {
+        "targetAlias": "net8.0",
+        "dependencies": {
+          "Springcomp.GPPG.Runtime": {
+            "target": "Package",
+            "version": "[1.2.5, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
