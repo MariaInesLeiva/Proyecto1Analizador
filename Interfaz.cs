@@ -70,6 +70,32 @@ namespace Proyecto1Analizador
 
             Console.WriteLine();
         }
+        public static void MostrarErroresSintacticos(List<string> errores)
+        {
+            if (errores == null || errores.Count == 0)
+            {
+                Console.ForegroundColor= ConsoleColor.Green;
+                Console.WriteLine("\nNo hay errores sintácticos");
+                Console.ResetColor();
+                return;
+            }
+
+            Console.WriteLine();
+            Console.ForegroundColor=ConsoleColor.Red;
+            Console.WriteLine("--------------------ERRORES SINTÁCTICOS--------------------");
+            Console.WriteLine("N°".PadRight(5) + "DESCRIPCIÓN");
+            Console.WriteLine(new string('-', 60));
+
+            for(int i = 0; i < errores.Count; i++)
+            {
+                Console.ForegroundColor=ConsoleColor.Red;
+                Console.Write((i+1).ToString().PadRight(5));
+                Console.ResetColor();
+                Console.WriteLine(errores[i]);
+            }
+
+            Console.WriteLine();
+        }
 
         private static void PonerColor(string tipo)
         {
