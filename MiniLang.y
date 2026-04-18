@@ -34,6 +34,7 @@ LINEAS
 
 LINEA
     : SENTENCIA NEWLINE
+    | SENTENCIA
     | NEWLINE
     | error NEWLINE
     ;
