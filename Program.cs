@@ -14,7 +14,7 @@ namespace Proyecto1Analizador
 
             // Lo pedimos en consola
             Console.Write("Ingrese la ruta del archivo de entrada: ");
-            rutaEntrada = Console.ReadLine();
+            rutaEntrada = Console.ReadLine() ?? "";
 
             // Validaciones
             if (string.IsNullOrWhiteSpace(rutaEntrada))
