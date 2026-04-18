@@ -72,11 +72,11 @@ namespace Proyecto1Analizador
         }
         public static void MostrarErroresSintacticos(List<string> errores)
         {
+            MostrarAnimacion("---------------------------ANALIZADOR SINTÁCTICO---------------------------", ConsoleColor.Green);
+            Console.WriteLine();
+
             if (errores == null || errores.Count == 0)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("\nNo se detectó ningún error de sintaxis.");
-                Console.ResetColor();
                 return;
             }
 
