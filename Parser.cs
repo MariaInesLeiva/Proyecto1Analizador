@@ -342,16 +342,9 @@ public partial class Parser
     }
 
     public void yyerror(string mensaje)
-{
-    if (control.tokenActual != null)
     {
-        control.AgregarError("se encontró: '" + control.tokenActual.Lexema + "'. " + mensaje);
+        control.AgregarError("error sintáctico: " + mensaje);
     }
-    else
-    {
-        control.AgregarError("Error sintáctico: " + mensaje);
-    }
-}
 }
 #line default
 }

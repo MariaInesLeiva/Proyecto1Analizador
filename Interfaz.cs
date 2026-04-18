@@ -74,22 +74,22 @@ namespace Proyecto1Analizador
         {
             if (errores == null || errores.Count == 0)
             {
-                Console.ForegroundColor= ConsoleColor.Green;
-                Console.WriteLine("\nNo hay errores sintácticos");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\nNo se detectó ningún error de sintaxis.");
                 Console.ResetColor();
                 return;
             }
 
             Console.WriteLine();
-            Console.ForegroundColor=ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("--------------------ERRORES SINTÁCTICOS--------------------");
             Console.WriteLine("N°".PadRight(5) + "DESCRIPCIÓN");
             Console.WriteLine(new string('-', 60));
 
-            for(int i = 0; i < errores.Count; i++)
+            for (int i = 0; i < errores.Count; i++)
             {
-                Console.ForegroundColor=ConsoleColor.Red;
-                Console.Write((i+1).ToString().PadRight(5));
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write((i + 1).ToString().PadRight(5));
                 Console.ResetColor();
                 Console.WriteLine(errores[i]);
             }

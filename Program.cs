@@ -80,10 +80,9 @@ namespace Proyecto1Analizador
             bool hayLexicos = lexer.Errores.Count > 0; //valida los errores léxicos
             bool haySintacticos = control.errores.Count >0; //valida los errores sintácticos
 
-            if(!hayLexicos && !haySintacticos) //condición para imprimir el resultado
+            if(!hayLexicos && !haySintacticos)
             {
                 Console.WriteLine ("OK");
-            
             }
             else
             {
@@ -94,7 +93,6 @@ namespace Proyecto1Analizador
                 if (haySintacticos)
                 {
                     Interfaz.MostrarErroresSintacticos(control.errores);
-                    
                 }
             }
 
