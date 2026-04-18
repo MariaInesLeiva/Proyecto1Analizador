@@ -7,10 +7,13 @@ namespace Proyecto1Analizador
     {
         private List<Token> listaTokens;
         private ControlSintactico control;
-
         private int posicion;
-        public Token tokenActual { get; private set; }
 
+        public Token? tokenActual
+        {
+            get;
+            private set;
+        }
         public LectorTokens(List<Token> tokensEntrada, ControlSintactico controlEntrada)
         {
             listaTokens = tokensEntrada;
@@ -20,88 +23,154 @@ namespace Proyecto1Analizador
 
         public override int yylex()
         {
-            // Si ya no hay más tokens → EOF
+            // Si ya no hay más tokens, devolvemos EOF
             if (posicion >= listaTokens.Count)
             {
                 tokenActual = new Token(TipoToken.FP, "EOF", 0, 0, 0);
-
-                // Guardamos el token actual para manejo de errores
                 control.tokenActual = tokenActual;
-
                 return (int)Tokens.EOF;
             }
 
-            // Obtenemos el siguiente token
             tokenActual = listaTokens[posicion];
             posicion++;
 
-            // Actualizamos el token actual en el control
+            // Guardamos el token actual para reportar errores sintácticos
             control.tokenActual = tokenActual;
 
-            // Convertimos de TipoToken → Tokens (GPPG)
             switch (tokenActual.Tipo)
             {
                 // Tipos
-                case TipoToken.PRINT: return (int)Tokens.PRINT;
-                case TipoToken.PRFLOAT: return (int)Tokens.PRFLOAT;
-                case TipoToken.PRCHAR: return (int)Tokens.PRCHAR;
-                case TipoToken.PRBOOL: return (int)Tokens.PRBOOL;
+                case TipoToken.PRINT:
+                    return (int)Tokens.PRINT;
+
+                case TipoToken.PRFLOAT:
+                    return (int)Tokens.PRFLOAT;
+
+                case TipoToken.PRCHAR:
+                    return (int)Tokens.PRCHAR;
+
+                case TipoToken.PRBOOL:
+                    return (int)Tokens.PRBOOL;
 
                 // Control
-                case TipoToken.PRIF: return (int)Tokens.PRIF;
-                case TipoToken.PRELIF: return (int)Tokens.PRELIF;
-                case TipoToken.PRELSE: return (int)Tokens.PRELSE;
-                case TipoToken.PRWHILE: return (int)Tokens.PRWHILE;
-                case TipoToken.PRDEF: return (int)Tokens.PRDEF;
-                case TipoToken.PRRETURN: return (int)Tokens.PRRETURN;
+                case TipoToken.PRIF:
+                    return (int)Tokens.PRIF;
+
+                case TipoToken.PRELIF:
+                    return (int)Tokens.PRELIF;
+
+                case TipoToken.PRELSE:
+                    return (int)Tokens.PRELSE;
+
+                case TipoToken.PRWHILE:
+                    return (int)Tokens.PRWHILE;
+
+                case TipoToken.PRDEF:
+                    return (int)Tokens.PRDEF;
+
+                case TipoToken.PRRETURN:
+                    return (int)Tokens.PRRETURN;
 
                 // Entrada / salida
-                case TipoToken.PRREAD: return (int)Tokens.PRREAD;
-                case TipoToken.PRWRITE: return (int)Tokens.PRWRITE;
+                case TipoToken.PRREAD:
+                    return (int)Tokens.PRREAD;
+
+                case TipoToken.PRWRITE:
+                    return (int)Tokens.PRWRITE;
 
                 // Lógicos
-                case TipoToken.OR: return (int)Tokens.OR;
-                case TipoToken.AND: return (int)Tokens.AND;
-                case TipoToken.NOT: return (int)Tokens.NOT;
+                case TipoToken.OR:
+                    return (int)Tokens.OR;
+
+                case TipoToken.AND:
+                    return (int)Tokens.AND;
+
+                case TipoToken.NOT:
+                    return (int)Tokens.NOT;
 
                 // Datos
-                case TipoToken.INT: return (int)Tokens.INT;
-                case TipoToken.FLOAT: return (int)Tokens.FLOAT;
-                case TipoToken.CHAR: return (int)Tokens.CHAR;
-                case TipoToken.BOOL: return (int)Tokens.BOOL;
-                case TipoToken.ID: return (int)Tokens.ID;
+                case TipoToken.INT:
+                    return (int)Tokens.INT;
 
-                // Operadores
-                case TipoToken.SUM: return (int)Tokens.SUM;
-                case TipoToken.RESTA: return (int)Tokens.RESTA;
-                case TipoToken.MULTI: return (int)Tokens.MULTI;
-                case TipoToken.DIV: return (int)Tokens.DIV;
-                case TipoToken.PORCENTAJE: return (int)Tokens.PORCENTAJE;
+                case TipoToken.FLOAT:
+                    return (int)Tokens.FLOAT;
 
-                case TipoToken.IGUAL: return (int)Tokens.IGUAL;
-                case TipoToken.IGUALIGUAL: return (int)Tokens.IGUALIGUAL;
-                case TipoToken.NOIGUAL: return (int)Tokens.NOIGUAL;
-                case TipoToken.MAYORQ: return (int)Tokens.MAYORQ;
-                case TipoToken.MENORQ: return (int)Tokens.MENORQ;
-                case TipoToken.MAYORIGUAL: return (int)Tokens.MAYORIGUAL;
-                case TipoToken.MENORIGUAL: return (int)Tokens.MENORIGUAL;
+                case TipoToken.CHAR:
+                    return (int)Tokens.CHAR;
+
+                case TipoToken.BOOL:
+                    return (int)Tokens.BOOL;
+
+                case TipoToken.ID:
+                    return (int)Tokens.ID;
+
+                // Operadores aritméticos
+                case TipoToken.SUM:
+                    return (int)Tokens.SUM;
+
+                case TipoToken.RESTA:
+                    return (int)Tokens.RESTA;
+
+                case TipoToken.MULTI:
+                    return (int)Tokens.MULTI;
+
+                case TipoToken.DIV:
+                    return (int)Tokens.DIV;
+
+                case TipoToken.PORCENTAJE:
+                    return (int)Tokens.PORCENTAJE;
+
+                // Operadores relacionales / asignación
+                case TipoToken.IGUAL:
+                    return (int)Tokens.IGUAL;
+
+                case TipoToken.IGUALIGUAL:
+                    return (int)Tokens.IGUALIGUAL;
+
+                case TipoToken.NOIGUAL:
+                    return (int)Tokens.NOIGUAL;
+
+                case TipoToken.MAYORQ:
+                    return (int)Tokens.MAYORQ;
+
+                case TipoToken.MENORQ:
+                    return (int)Tokens.MENORQ;
+
+                case TipoToken.MAYORIGUAL:
+                    return (int)Tokens.MAYORIGUAL;
+
+                case TipoToken.MENORIGUAL:
+                    return (int)Tokens.MENORIGUAL;
 
                 // Símbolos
-                case TipoToken.PARENI: return (int)Tokens.PARENI;
-                case TipoToken.PAREND: return (int)Tokens.PAREND;
-                case TipoToken.COMA: return (int)Tokens.COMA;
+                case TipoToken.PARENI:
+                    return (int)Tokens.PARENI;
+
+                case TipoToken.PAREND:
+                    return (int)Tokens.PAREND;
+
+                case TipoToken.COMA:
+                    return (int)Tokens.COMA;
 
                 // Estructura
-                case TipoToken.NEWLINE: return (int)Tokens.NEWLINE;
-                case TipoToken.INDENT: return (int)Tokens.INDENT;
-                case TipoToken.DEDENT: return (int)Tokens.DEDENT;
+                case TipoToken.NEWLINE:
+                    return (int)Tokens.NEWLINE;
 
-                // Especiales
-                case TipoToken.FP: return (int)Tokens.FP;
-                case TipoToken.ERROR: return (int)Tokens.ERROR;
+                case TipoToken.INDENT:
+                    return (int)Tokens.INDENT;
+
+                case TipoToken.DEDENT:
+                    return (int)Tokens.DEDENT;
+
+                // Final de archivo
+                case TipoToken.FP:
+                    return (int)Tokens.EOF;
+
+                // Error léxico
+                case TipoToken.ERROR:
+                    return (int)Tokens.ERROR;
 
                 default:
-                    // Error controlado
                     control.AgregarError("token no reconocido por el parser");
                     return (int)Tokens.ERROR;
             }

@@ -12,19 +12,19 @@
 %token IGUAL IGUALIGUAL NOIGUAL MAYORQ MENORQ MAYORIGUAL MENORIGUAL
 %token PARENI PAREND COMA
 %token NEWLINE INDENT DEDENT
-%token FP ERROR
+%token ERROR
 
 %left OR
-%left AND 
+%left AND
 %right NOT
 %nonassoc IGUALIGUAL NOIGUAL MAYORQ MENORQ MAYORIGUAL MENORIGUAL
 %left SUM RESTA
 %left MULTI DIV PORCENTAJE
 
-%% 
+%%
 
 S
-    : LINEAS 
+    : LINEAS
     ;
 
 LINEAS
@@ -32,7 +32,7 @@ LINEAS
     |
     ;
 
-LINEA 
+LINEA
     : SENTENCIA NEWLINE
     | NEWLINE
     | error NEWLINE
@@ -62,7 +62,7 @@ DATO
     | BOOL
     ;
 
-DECLARACION 
+DECLARACION
     : TIPO ID
     | TIPO ID IGUAL EXPRESION
     ;
@@ -71,7 +71,7 @@ ASIGNACION
     : ID IGUAL EXPRESION
     ;
 
-IF 
+IF
     : PRIF PARENI CONDICION PAREND NEWLINE BLOQUE ELIFS ELSEP
     ;
 
@@ -98,18 +98,18 @@ ENTRADASALIDA
     | PRWRITE PARENI EXPRESION PAREND
     ;
 
-FUNCION 
+FUNCION
     : PRDEF ID PARENI PARAMETROS PAREND NEWLINE BLOQUEFUNCION
     ;
 
 PARAMETROS
-    : PARAMS 
+    : PARAMS
     |
     ;
 
 PARAMS
     : PARAM
-    | PARAMS COMA PARAM 
+    | PARAMS COMA PARAM
     ;
 
 PARAM
@@ -216,7 +216,7 @@ public partial class Parser
     private LectorTokens lector;
     private ControlSintactico control;
 
-    public Parser(LectorTokens lectorEntrada, ControlSintactico controlEntrada)
+    public Parser(LectorTokens lectorEntrada, ControlSintactico controlEntrada) : base(lectorEntrada)
     {
         lector = lectorEntrada;
         control = controlEntrada;

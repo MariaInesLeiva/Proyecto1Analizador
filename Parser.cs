@@ -33,7 +33,7 @@ public partial class Parser: ShiftReduceParser<int, LexLocation>
   // Verbatim content from minilang.y - 4/17/2026 10:33:21 A
   // End verbatim content from minilang.y - 4/17/2026 10:33:21 
 #pragma warning disable 649
-  private static Dictionary<int, string> aliases;
+  private static Dictionary<int, string>? aliases;
 #pragma warning restore 649
   private static Rule[] rules = new Rule[92];
   private static State[] states = new State[154];
