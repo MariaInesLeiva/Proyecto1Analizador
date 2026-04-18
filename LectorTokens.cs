@@ -1,13 +1,14 @@
 using System.Collections.Generic;
+using StarodubOleg.GPPG.Runtime;
 
 namespace Proyecto1Analizador
 {
-    public class LectorTokens
+    public class LectorTokens : AbstractScanner<int, LexLocation>
     {
         private List<Token> listaTokens;
         private ControlSintactico control;
-        private int posicion;
 
+        private int posicion;
         public Token tokenActual { get; private set; }
 
         public LectorTokens(List<Token> tokensEntrada, ControlSintactico controlEntrada)
@@ -17,7 +18,7 @@ namespace Proyecto1Analizador
             posicion = 0;
         }
 
-        public int yylex()
+        public override int yylex()
         {
             // Si ya no hay más tokens → EOF
             if (posicion >= listaTokens.Count)
