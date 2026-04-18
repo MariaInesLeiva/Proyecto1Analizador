@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="YaccLexTools" Version="1.2.3" />
+    <PackageReference Include="StarodubOleg.GPPG.Runtime" Version="0.1.0-alpha1-2" />
   </ItemGroup>
 
 </Project>
