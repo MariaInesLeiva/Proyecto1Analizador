@@ -16,21 +16,3 @@ C:\Users\jenfe\Documents\Proyecto1Analizador\obj\Debug\net8.0\refint\Proyecto1An
 C:\Users\jenfe\Documents\Proyecto1Analizador\obj\Debug\net8.0\Proyecto1Analizador.pdb
 C:\Users\jenfe\Documents\Proyecto1Analizador\obj\Debug\net8.0\Proyecto1Analizador.genruntimeconfig.cache
 C:\Users\jenfe\Documents\Proyecto1Analizador\obj\Debug\net8.0\ref\Proyecto1Analizador.dll
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\bin\Debug\net8.0\Proyecto1Analizador.exe
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\bin\Debug\net8.0\Proyecto1Analizador.deps.json
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\bin\Debug\net8.0\Proyecto1Analizador.runtimeconfig.json
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\bin\Debug\net8.0\Proyecto1Analizador.dll
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\bin\Debug\net8.0\Proyecto1Analizador.pdb
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\bin\Debug\net8.0\StarodubOleg.GPPG.Runtime.dll
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\obj\Debug\net8.0\Proyecto1Analizador.csproj.AssemblyReference.cache
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\obj\Debug\net8.0\Proyecto1Analizador.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\obj\Debug\net8.0\Proyecto1Analizador.AssemblyInfoInputs.cache
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\obj\Debug\net8.0\Proyecto1Analizador.AssemblyInfo.cs
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\obj\Debug\net8.0\Proyecto1Analizador.csproj.CoreCompileInputs.cache
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\obj\Debug\net8.0\Proyecto1Analizador.sourcelink.json
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\obj\Debug\net8.0\Proyecto.8D860782.Up2Date
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\obj\Debug\net8.0\Proyecto1Analizador.dll
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\obj\Debug\net8.0\refint\Proyecto1Analizador.dll
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\obj\Debug\net8.0\Proyecto1Analizador.pdb
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\obj\Debug\net8.0\Proyecto1Analizador.genruntimeconfig.cache
-C:\Users\manes\OneDrive\Escritorio\Universidad\Quinto Semestre\Proyecto1Analizador\obj\Debug\net8.0\ref\Proyecto1Analizador.dll

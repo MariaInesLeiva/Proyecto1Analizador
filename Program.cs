@@ -80,20 +80,20 @@ namespace Proyecto1Analizador
             bool hayLexicos = lexer.Errores.Count > 0; //valida los errores léxicos
             bool haySintacticos = control.errores.Count >0; //valida los errores sintácticos
 
-            if(!hayLexicos && !haySintacticos)
+            // Mostramos primero la parte sintáctica
+            Interfaz.MostrarErroresSintacticos(control.errores);
+
+            if (!haySintacticos)
             {
-                Console.WriteLine ("OK");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("OK");
+                Console.WriteLine("No se encontraron errores sintácticos");
+                Console.ResetColor();
             }
-            else
+
+            if (hayLexicos)
             {
-                if (hayLexicos)
-                {
-                    Interfaz.MostrarErrores(lexer.Errores);
-                }
-                if (haySintacticos)
-                {
-                    Interfaz.MostrarErroresSintacticos(control.errores);
-                }
+                Interfaz.MostrarErrores(lexer.Errores);
             }
 
             // Mostramos en la consola las animaciones 
