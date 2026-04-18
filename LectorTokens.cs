@@ -24,11 +24,12 @@ namespace Proyecto1Analizador
         public override int yylex()
         {
             // Si ya no hay más tokens, devolvemos EOF
+            // Si ya no hay más tokens, devolvemos FP
             if (posicion >= listaTokens.Count)
             {
                 tokenActual = new Token(TipoToken.FP, "EOF", 0, 0, 0);
                 control.tokenActual = tokenActual;
-                return (int)Tokens.EOF;
+                return (int)Tokens.FP;
             }
 
             tokenActual = listaTokens[posicion];
