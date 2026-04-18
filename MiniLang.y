@@ -24,7 +24,7 @@
 %% 
 
 S
-    : LINEAS FP
+    : LINEAS 
     ;
 
 LINEAS

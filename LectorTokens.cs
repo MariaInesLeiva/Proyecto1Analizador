@@ -28,7 +28,7 @@ namespace Proyecto1Analizador
                 // Guardamos el token actual para manejo de errores
                 control.tokenActual = tokenActual;
 
-                return (int)Tokens.FP;
+                return (int)Tokens.EOF;
             }
 
             // Obtenemos el siguiente token
