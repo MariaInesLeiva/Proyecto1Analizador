@@ -29,7 +29,7 @@ namespace Proyecto1Analizador
             {
                 tokenActual = new Token(TipoToken.FP, "EOF", 0, 0, 0);
                 control.tokenActual = tokenActual;
-                return (int)Tokens.FP;
+                return (int)Tokens.EOF;
             }
 
             tokenActual = listaTokens[posicion];
@@ -165,7 +165,7 @@ namespace Proyecto1Analizador
 
                 // Final de archivo
                 case TipoToken.FP:
-                    return (int)Tokens.FP;
+                    return (int)Tokens.EOF;
 
                 // Error léxico
                 case TipoToken.ERROR:
