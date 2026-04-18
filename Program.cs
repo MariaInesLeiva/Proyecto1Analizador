@@ -76,16 +76,19 @@ namespace Proyecto1Analizador
             }
             else
             {
-                Console.WriteLine ("\n----- ERRORES LÉXICOS -----");
-                for(int i = 0; i<control.errores.Count; i++)
+                if (hayLexicos)
                 {
-                    Console.WriteLine (control.errores[i]);
+                    Interfaz.MostrarErrores(lexer.Errores);
+                }
+                if (haySintacticos)
+                {
+                    Interfaz.MostrarErroresSintacticos(control.errores);
+                    
                 }
             }
 
             // Mostramos en la consola las animaciones 
             Interfaz.MostrarTokens(tokens);
-            Interfaz.MostrarErrores(lexer.Errores);
 
             // Creamos la ruta de salida .out
             string rutaSalida = Path.ChangeExtension(rutaEntrada, ".out");
