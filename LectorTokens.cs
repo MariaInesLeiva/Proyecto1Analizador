@@ -164,7 +164,7 @@ namespace Proyecto1Analizador
 
                 // Final de archivo
                 case TipoToken.FP:
-                    return (int)Tokens.EOF;
+                    return (int)Tokens.FP;
 
                 // Error léxico
                 case TipoToken.ERROR:

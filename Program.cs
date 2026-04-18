@@ -56,17 +56,28 @@ namespace Proyecto1Analizador
             LectorTokens lector = new LectorTokens(tokens, control);
             Parser parser = new Parser(lector, control);
 
+            bool resultadoParse = false;
             try
             {
-                parser.Parse(); //se ejecuta el análisis sintáctico
+                resultadoParse=parser.Parse();
             }
-
-            catch(Exception ex) //Se manejan los errores
+            catch(Exception ex)
             {
-                control.AgregarError("Error durante el análisis: "+ex.Message);
+                control.AgregarError("Error en el análisis: " + ex.Message);
+            }
+            if(!resultadoParse && control.errores.Count == 0)
+            {
+                if(control.tokenActual != null)
+                {
+                    control.AgregarError("estructura incompleta cerca de '" + control.tokenActual.Lexema + "'");
+                }
+                else
+                {
+                    control.AgregarError("Error sintáctico");
+                }
             }
 
-            bool hayLexicos=lexer.Errores.Count > 0; //valida los errores léxicos
+            bool hayLexicos = lexer.Errores.Count > 0; //valida los errores léxicos
             bool haySintacticos = control.errores.Count >0; //valida los errores sintácticos
 
             if(!hayLexicos && !haySintacticos) //condición para imprimir el resultado

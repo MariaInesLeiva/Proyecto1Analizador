@@ -1,5 +1,5 @@
 PRWRITE 'Write' (1,1-5)
 PARENI '(' (1,6-6)
-CHAR '"Hola Mundo"' (1,7-18)
-NEWLINE '\n' (1,19-19)
+CHAR '"Hola a todos"' (1,7-20)
+NEWLINE '\n' (1,21-21)
 FP 'EOF' (2,1-1)
