@@ -1,0 +1,5 @@
+def suma(int a, int b)
+    return a + b
+
+int resultado = suma(5, 3)
+Write(resultado)
