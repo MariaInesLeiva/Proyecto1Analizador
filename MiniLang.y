@@ -36,7 +36,7 @@ LINEA
     : SENTENCIA NEWLINE
     | SENTENCIA
     | NEWLINE
-    | error NEWLINE
+    | error NEWLINE { yyerror("Error en bloque"); }
     ;
 
 SENTENCIA
@@ -134,7 +134,7 @@ LINEABLOQUE
     : SENTENCIABLOQUE NEWLINE
     | SENTENCIABLOQUE
     | NEWLINE
-    | error NEWLINE
+    | error NEWLINE { yyerror("Error en bloque"); }
     ;
 
 SENTENCIABLOQUE
@@ -160,7 +160,7 @@ LINEAFUNCION
     : SENTENCIAFUNCION NEWLINE
     |SENTENCIAFUNCION
     | NEWLINE
-    | error NEWLINE
+    | error NEWLINE { yyerror("Error en bloque"); }
     ;
 
 SENTENCIAFUNCION
@@ -232,6 +232,15 @@ public partial class Parser
 
     public void yyerror(string mensaje)
     {
-        control.AgregarError("error sintactico");
+        if (control.tokenActual != null)
+        {
+            control.AgregarError(
+                $"Línea {control.tokenActual.Linea}, columna {control.tokenActual.ColumnaInicio}, cerca de '{control.tokenActual.Lexema}'"
+            );
+        }
+        else
+        {
+            control.AgregarError("Error sintáctico");
+        }
     }
 }

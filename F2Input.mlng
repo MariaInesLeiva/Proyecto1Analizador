@@ -1,7 +1,3 @@
-int edad = 0
-Read(edad)
-
-if (edad >= 18)
-    Write("Acceso permitido")
-else
-    Write("Acceso denegado")
+int edad = 18
+if (edad > 17)
+    Write("Mayor de edad")
