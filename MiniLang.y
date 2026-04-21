@@ -36,6 +36,7 @@ LINEA
     : SENTENCIA NEWLINE
     | NEWLINE
     | error NEWLINE { yyerror("Error en línea"); }
+    ;
 
 SENTENCIA
     : DECLARACION
@@ -130,7 +131,6 @@ LINEASBLOQUE
 
 LINEABLOQUE
     : SENTENCIABLOQUE NEWLINE
-    | SENTENCIABLOQUE
     | NEWLINE
     | error NEWLINE { yyerror("Error en bloque"); }
     ;
@@ -156,7 +156,6 @@ LINEASFUNCION
 
 LINEAFUNCION
     : SENTENCIAFUNCION NEWLINE
-    |SENTENCIAFUNCION
     | NEWLINE
     | error NEWLINE { yyerror("Error en bloque"); }
     ;
