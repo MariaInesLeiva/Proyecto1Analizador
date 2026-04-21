@@ -3,24 +3,33 @@ using StarodubOleg.GPPG.Runtime;
 
 namespace Proyecto1Analizador
 {
+    // Creamos la clase LectorTokens que hereda de AbstractScanner
+    // Esta clase se encarga de enviarle los tokens al parser uno por uno
     public class LectorTokens : AbstractScanner<int, LexLocation>
     {
+        // Creamos una lista donde guardamos todos los tokens que vienen del lexer
         private List<Token> listaTokens;
+        // Creamos una referencia al control sintáctico para poder reportar errores
         private ControlSintactico control;
+        // Usamos esta variable como contador para recorrer la lista de tokens
         private int posicion;
 
+        // Creamos una propiedad para guardar el token actual que se está procesando
         public Token? tokenActual
         {
             get;
             private set;
         }
+        
+        // Constructor donde recibimos la lista de tokens y el control sintáctico
         public LectorTokens(List<Token> tokensEntrada, ControlSintactico controlEntrada)
         {
             listaTokens = tokensEntrada;
             control = controlEntrada;
             posicion = 0;
         }
-
+        
+        // Método principal que el parser llama para obtener el siguiente token
         public override int yylex()
         {
             // Si ya no hay más tokens, devolvemos EOF

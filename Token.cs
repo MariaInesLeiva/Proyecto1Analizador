@@ -39,7 +39,7 @@ namespace Proyecto1Analizador
         // Creamos una función para crear el archivo .out
         public override string ToString()
         {
-            // Se creó un formato para la pila que indica: TIPO 'lexema' (Linea,ColumnaI-ColumnaF)
+            // Creamos formato para la pila que indica: TIPO 'lexema' (Linea,ColumnaI-ColumnaF)
             return Tipo + " '" + Lexema + "' (" + Linea + "," + ColumnaI + "-" + ColumnaF + ")";
         }
     }
