@@ -1,0 +1,9 @@
+def aplicarDescuento(int precio, int descuento)
+    int final = precio - descuento
+    return final
+
+int producto = 100
+int rebaja = 20
+int resultado = aplicarDescuento(producto, rebaja)
+
+Write(resultado)

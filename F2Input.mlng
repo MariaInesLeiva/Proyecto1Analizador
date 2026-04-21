@@ -1,0 +1,7 @@
+int edad = 0
+Read(edad)
+
+if (edad >= 18)
+    Write("Acceso permitido")
+else
+    Write("Acceso denegado")
