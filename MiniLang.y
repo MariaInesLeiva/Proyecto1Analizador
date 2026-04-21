@@ -34,10 +34,8 @@ LINEAS
 
 LINEA
     : SENTENCIA NEWLINE
-    | SENTENCIA
     | NEWLINE
-    | error NEWLINE { yyerror("Error en bloque"); }
-    ;
+    | error NEWLINE { yyerror("Error en línea"); }
 
 SENTENCIA
     : DECLARACION
