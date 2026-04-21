@@ -1,1 +1,2 @@
-Write("Hola Mundo")
+int mensaje = "Hola Mundo"
+Write(mensaje)
