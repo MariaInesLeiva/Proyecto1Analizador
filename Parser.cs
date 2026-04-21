@@ -356,12 +356,12 @@ public partial class Parser
         if (control.tokenActual != null)
         {
             control.AgregarError(
-                $"LÃnea {control.tokenActual.Linea}, columna {control.tokenActual.ColumnaInicio}, cerca de '{control.tokenActual.Lexema}''"
+                $"Línea {control.tokenActual.Linea}, columna {control.tokenActual.ColumnaI}, cerca de '{control.tokenActual.Lexema}''"
             );
         }
         else
         {
-            control.AgregarError("Error sintÃ¡ctico");
+            control.AgregarError("Error sintáctico");
         }
     }
 }
