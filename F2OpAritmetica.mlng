@@ -1,0 +1,5 @@
+int precio = 25
+int cantidad = 4
+int total = precio * cantidad + 10
+
+Write(total)

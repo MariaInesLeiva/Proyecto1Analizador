@@ -5,14 +5,14 @@ namespace Proyecto1Analizador
     public class ControlSintactico
     {
          public List<string> errores; //lista para guardar los errores sintacticos
-         public Token? tokenActual; //guarda el token actual para que lo lea el parser
+         public Token? tokenActual; //guardamos el token actual para que lo lea el parser
          public ControlSintactico()
         {
             errores = new List<string>();
             tokenActual = null;
         }
 
-        public void AgregarError(string descripcion) //registra los errores sintácticos
+        public void AgregarError(string descripcion) //registramos los errores sintácticos
         {
             if (tokenActual == null)
             {
