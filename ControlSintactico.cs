@@ -4,33 +4,44 @@ namespace Proyecto1Analizador
 {
     public class ControlSintactico
     {
-         public List<string> errores; //lista para guardar los errores sintacticos
-         public Token? tokenActual; //guardamos el token actual para que lo lea el parser
-         public ControlSintactico()
+        public List<string> errores;
+        public Token? tokenActual;
+
+        public ControlSintactico()
         {
             errores = new List<string>();
             tokenActual = null;
         }
 
-        public void AgregarError(string descripcion) //registramos los errores sintácticos
+        public void AgregarError(string descripcion)
         {
+            if (string.IsNullOrWhiteSpace(descripcion))
+            {
+                descripcion = "error sintáctico";
+            }
+
             if (tokenActual == null)
             {
-                errores.Add("Error: " + descripcion);
+                errores.Add("Error sintáctico: " + descripcion);
                 return;
             }
+
             string simbolo = tokenActual.Lexema;
+
             if (string.IsNullOrEmpty(simbolo))
             {
-                simbolo = tokenActual.Tipo; 
+                simbolo = tokenActual.Tipo;
             }
 
-            string mensaje = "Linea " + tokenActual.Linea +
+            string mensaje = "Línea " + tokenActual.Linea +
                              ", columna " + tokenActual.ColumnaI +
-                             ", simbolo '" + simbolo +
-                             "', Error: " + descripcion;
-            errores.Add(mensaje);
-        }
+                             ", cerca de '" + simbolo +
+                             "': " + descripcion;
 
+            if (!errores.Contains(mensaje))
+            {
+                errores.Add(mensaje);
+            }
+        }
     }
 }
