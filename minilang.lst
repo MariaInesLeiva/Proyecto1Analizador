@@ -1,21 +1,17 @@
 
 // ==========================================================================
-//  GPPG error listing for yacc source file <minilang.y - 4/17/2026 10:00:44 AM>
+//  GPPG error listing for yacc source file <MiniLang.y - 5/13/2026 1:19:12 PM>
 // ==========================================================================
 //  Version:  1.2.5.0
 //  Machine:  MSI
-//  DateTime: 4/17/2026 10:24:44 AM
+//  DateTime: 5/13/2026 1:19:23 PM
 // ==========================================================================
 
 
 %namespace Proyecto1Analizador
 %partial
 %tokentype Tokens
-%start start
-
-%{
-    using System;
-%}
+%start S
 
 %token PRINT PRFLOAT PRCHAR PRBOOL
 %token PRIF PRELIF PRELSE PRWHILE PRDEF PRRETURN
@@ -26,19 +22,27 @@
 %token IGUAL IGUALIGUAL NOIGUAL MAYORQ MENORQ MAYORIGUAL MENORIGUAL
 %token PARENI PAREND COMA
 %token NEWLINE INDENT DEDENT
-%token FP ERROR
+%token ERROR
 
 %left OR
-%left AND 
+%left AND
 %right NOT
 %nonassoc IGUALIGUAL NOIGUAL MAYORQ MENORQ MAYORIGUAL MENORIGUAL
 %left SUM RESTA
 %left MULTI DIV PORCENTAJE
+%right UMINUS
 
-%% 
+%%
+// Error: There are 1 non-terminating NonTerminal Symbols
+   //  {ENCABEZADO_CONTROL}
+// Warning: Terminating ENCABEZADO_CONTROL fixes the following size-1 NonTerminal set
+   // {ENCABEZADO_CONTROL}
+// Error: NonTerminal symbol "ENCABEZADO_CONTROL" has no productions
+// Warning: NonTerminal symbol "CONDICION" is unreachable
+// ----------------------------------------------------------------------------------
 
 S
-    : LINEAS FP
+    : LINEAS
     ;
 
 LINEAS
@@ -46,20 +50,29 @@ LINEAS
     |
     ;
 
-LINEA 
-    : SENTENCIA NEWLINE
+LINEA
+    : SENTENCIA_SIMPLE NEWLINE
+    | PRIF PARENI EXPRESION PAREND NEWLINE
+    | PRWHILE PARENI EXPRESION PAREND NEWLINE
+    | PRELSE NEWLINE
+    | FUNCION
+    | RETURN NEWLINE
+    | INDENT
+    | DEDENT
     | NEWLINE
-    | error NEWLINE
+    | PRIF EXPRESION PAREND NEWLINE { yyerror("en if falta el parentesis de apertura '('"); }
+    | PRIF PARENI EXPRESION NEWLINE { yyerror("en if falta el parentesis de cierre ')'"); }
+    | PRWHILE EXPRESION PAREND NEWLINE { yyerror("en while falta el parentesis de apertura '('"); }
+    | PRWHILE PARENI EXPRESION NEWLINE { yyerror("en while falta el parentesis de cierre ')'"); }
+    | ERROR NEWLINE { yyerror("token lexico invalido dentro de la sentencia"); }
+    | error NEWLINE { yyerror("sentencia no valida o incompleta"); }
     ;
 
-SENTENCIA
+SENTENCIA_SIMPLE
     : DECLARACION
     | ASIGNACION
-    | EXPRESION
-    | IF
-    | WHILE
     | ENTRADASALIDA
-    | FUNCION
+    | LLAMADA
     ;
 
 TIPO
@@ -76,119 +89,81 @@ DATO
     | BOOL
     ;
 
-DECLARACION 
+DECLARACION
     : TIPO ID
     | TIPO ID IGUAL EXPRESION
+    | TIPO error { yyerror("despues del tipo se esperaba un identificador"); }
+    | TIPO ID IGUAL error { yyerror("despues de '=' se esperaba una expresion valida"); }
     ;
 
 ASIGNACION
     : ID IGUAL EXPRESION
+    | ID IGUAL error { yyerror("despues de '=' se esperaba una expresion valida"); }
     ;
 
-IF 
-    : PRIF PARENI CONDICION PAREND NEWLINE BLOQUE ELIFS ELSEP
-    ;
-
-ELIFS
-    : ELIFS ELIF
-    |
-    ;
-
-ELIF
-    : PRELIF PARENI CONDICION PAREND NEWLINE CLOQUE
-    ;
-
-ELSEP
-    : PRELSE NEWLINE BLOQUE
-    |
-    ;
-
-WHILE
-    : PRWHILE PARENI CONDICION PAREND NEWLINE BLOQUE
-    ;
-
-ENTRADASALIDA
-    : PRREAD PARENI ID PAREND
-    | PRWRITE PARENI EXPRESION PAREND
-    ;
-
-FUNCION 
-    : PRDEF ID PARENI PARAMETROS PAREND NEWLINE BLOQUESUNCION
+FUNCION
+    : PRDEF ID PARENI PARAMETROS PAREND NEWLINE BLOQUEFUNCION
+    | PRDEF PARENI PARAMETROS PAREND NEWLINE BLOQUEFUNCION { yyerror("despues de def se esperaba el nombre de la funcion"); }
+    | PRDEF ID PARAMETROS PAREND NEWLINE BLOQUEFUNCION { yyerror("en la funcion falta el parentesis de apertura '('"); }
+    | PRDEF ID PARENI PARAMETROS NEWLINE BLOQUEFUNCION { yyerror("en la funcion falta el parentesis de cierre ')'"); }
     ;
 
 PARAMETROS
-    : PARAMS 
+    : PARAMS
     |
     ;
 
 PARAMS
     : PARAM
-    | PARAMS COMA PARAM 
+    | PARAMS COMA PARAM
+    | PARAMS COMA error { yyerror("despues de la coma se esperaba otro parametro"); }
     ;
 
 PARAM
     : TIPO ID
+    | TIPO error { yyerror("en el parametro falta el identificador"); }
     ;
 
 RETURN
     : PRRETURN EXPRESION
-    ;
-
-BLOQUE
-    : INDENT LINEASBLOQUE DEDENT
-    ;
-
-LINEASBLOQUE
-    : LINEASBLOQUE LINEABLOQUE
-    |
-    ;
-
-LINEABLOQUE
-    : SENTENCIABLOQUE NEWLINE
-    | NEWLINE
-    | error NEWLINE
-    ;
-
-SENTENCIABLOQUE
-    : DECLARACION
-    | ASIGNACION
-    | EXPRESION
-    | IF
-    | WHILE
-    | ENTRADASALIDA
-    | RETURN
+    | PRRETURN error { yyerror("return necesita una expresion valida"); }
     ;
 
 BLOQUEFUNCION
     : INDENT LINEASFUNCION DEDENT
+    | INDENT DEDENT { yyerror("el bloque de la funcion no puede estar vacio"); }
     ;
 
 LINEASFUNCION
-    : LINEASFUNCION LINEASFUNCION
-    |
+    : LINEASFUNCION LINEAFUNCION
+    | LINEAFUNCION
     ;
 
 LINEAFUNCION
-    : SENTENCIAFUNCION NEWLINE
+    : SENTENCIA_SIMPLE NEWLINE
+    | ENCABEZADO_CONTROL NEWLINE
+    | RETURN NEWLINE
+    | INDENT
+    | DEDENT
     | NEWLINE
-    | error NEWLINE
+    | ERROR NEWLINE { yyerror("token lexico invalido dentro de la funcion"); }
+    | error NEWLINE { yyerror("sentencia no valida dentro de la funcion"); }
     ;
 
-SENTENCIAFUNCION
-    : DECLARACION
-    | ASIGNACION
-    | EXPRESION
-    | IF
-    | WHILE
-    | ENTRADA SALIDA
-    | RETURN
+ENTRADASALIDA
+    : PRREAD PARENI ID PAREND
+    | PRWRITE PARENI EXPRESION PAREND
+    | PRREAD PARENI EXPRESION PAREND { yyerror("Read solo puede recibir un identificador"); }
+    | PRREAD ID PAREND { yyerror("en Read falta el parentesis de apertura '('"); }
+    | PRREAD PARENI ID error { yyerror("en Read falta el parentesis de cierre ')'"); }
+    | PRWRITE PARENI PAREND { yyerror("Write necesita una expresion valida"); }
+    | PRWRITE EXPRESION PAREND { yyerror("en Write falta el parentesis de apertura '('"); }
+    | PRWRITE PARENI EXPRESION error { yyerror("en Write falta el parentesis de cierre ')'"); }
     ;
 
 LLAMADA
-    | ID PARENI ARGUMENTOS PAREND
-//-^^
-// Error: Syntax error, unexpected '|', expecting ':'
-// --------------------------------------------------
+    : ID PARENI ARGUMENTOS PAREND
+    | ID PARENI ARGUMENTOS error { yyerror("en la llamada falta el parentesis de cierre ')'"); }
     ;
 
 ARGUMENTOS
@@ -199,6 +174,7 @@ ARGUMENTOS
 LISTAARGUMENTOS
     : EXPRESION
     | LISTAARGUMENTOS COMA EXPRESION
+    | LISTAARGUMENTOS COMA error { yyerror("despues de la coma se esperaba otro argumento"); }
     ;
 
 CONDICION
@@ -206,12 +182,7 @@ CONDICION
     ;
 
 EXPRESION
-    : ID
-    | DATO
-    | LLAMADA
-    | PARENI EXPRESION PAREND
-    | NOT EXPRESION
-    | EXPRESION OR EXPRESION
+    : EXPRESION OR EXPRESION
     | EXPRESION AND EXPRESION
     | EXPRESION IGUALIGUAL EXPRESION
     | EXPRESION NOIGUAL EXPRESION
@@ -224,30 +195,39 @@ EXPRESION
     | EXPRESION MULTI EXPRESION
     | EXPRESION DIV EXPRESION
     | EXPRESION PORCENTAJE EXPRESION
+    | NOT EXPRESION
+    | RESTA EXPRESION %prec UMINUS
+    | PARENI EXPRESION PAREND
+    | PARENI EXPRESION error { yyerror("en la expresion falta el parentesis de cierre ')'"); }
+    | PARENI error PAREND { yyerror("expresion invalida dentro de parentesis"); }
+    | LLAMADA
+    | ID
+    | DATO
     ;
 
 %%
 
-public partial class Parser
+private LectorTokens lector;
+private ControlSintactico control;
+
+public Parser(LectorTokens lectorEntrada, ControlSintactico controlEntrada) : base(lectorEntrada)
 {
-    private LectorTokens lector;
-    private ControlSintactico control;
-
-    public Parser(LectorTokens lectorEntrada, ControlSintactico controlEntrada)
-    {
-        lector = lectorEntrada;
-        control = controlEntrada;
-    }
-
-    public int yylex()
-    {
-        return lector.yylex();
-    }
-
-    public void yyerror(string mensaje)
-    {
-        control.AgregarError("error sintactico");
-    }
+    lector = lectorEntrada;
+    control = controlEntrada;
 }
-// ==========================================================================
+
+public int yylex()
+{
+    return lector.yylex();
+}
+
+public void yyerror(string mensaje)
+{
+    if (string.IsNullOrWhiteSpace(mensaje))
+    {
+        mensaje = "error sintactico";
+    }
+
+    control.AgregarError(mensaje);
+}// ==========================================================================
 

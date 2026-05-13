@@ -1,8 +1,12 @@
-int n
-n = 5
+int valor
+valor = 5
 
-if n > 0)
-    Write("Positivo")
+if valor > 0)
+    Write("Falta parentesis")
 
-while (n > 0
-    n = n - 1
+else
+    Write("Else correcto")
+
+while (valor > 0
+    Write(valor)
+    valor = valor - 1
