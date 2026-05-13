@@ -26,26 +26,17 @@ LINEAS
     ;
 
 LINEA
-    : SENTENCIA NEWLINE
-    | NEWLINE
-    | error NEWLINE { yyerror("sentencia no válida o incompleta"); }
-    ;
-
-SENTENCIA
-    : DECLARACION
-    | ASIGNACION
+    : SENTENCIA_SIMPLE NEWLINE
     | IF
     | WHILE
-    | ENTRADASALIDA
     | FUNCION
-    | LLAMADA
+    | NEWLINE
+    | error NEWLINE { yyerror("sentencia no valida o incompleta"); }
     ;
 
 SENTENCIA_SIMPLE
     : DECLARACION
     | ASIGNACION
-    | IF
-    | WHILE
     | ENTRADASALIDA
     | LLAMADA
     ;
@@ -67,21 +58,21 @@ DATO
 DECLARACION
     : TIPO ID
     | TIPO ID IGUAL EXPRESION
-    | TIPO error { yyerror("después del tipo se esperaba un identificador"); }
-    | TIPO ID IGUAL error { yyerror("después de '=' se esperaba una expresión válida"); }
+    | TIPO error { yyerror("despues del tipo se esperaba un identificador"); }
+    | TIPO ID IGUAL error { yyerror("despues de '=' se esperaba una expresion valida"); }
     ;
 
 ASIGNACION
     : ID IGUAL EXPRESION
-    | ID IGUAL error { yyerror("después de '=' se esperaba una expresión válida"); }
+    | ID IGUAL error { yyerror("despues de '=' se esperaba una expresion valida"); }
     ;
 
 IF
     : PRIF PARENI CONDICION PAREND NEWLINE BLOQUE ELIFS ELSEP
-    | PRIF CONDICION PAREND NEWLINE BLOQUE ELIFS ELSEP { yyerror("en if falta el paréntesis de apertura '('"); }
-    | PRIF PARENI CONDICION NEWLINE BLOQUE ELIFS ELSEP { yyerror("en if falta el paréntesis de cierre ')'"); }
-    | PRIF PARENI error PAREND NEWLINE BLOQUE ELIFS ELSEP { yyerror("la condición del if no es válida"); }
-    | PRIF PARENI CONDICION PAREND NEWLINE error { yyerror("después del if se esperaba un bloque indentado"); }
+    | PRIF CONDICION PAREND NEWLINE BLOQUE ELIFS ELSEP { yyerror("en if falta el parentesis de apertura '('"); }
+    | PRIF PARENI CONDICION NEWLINE BLOQUE ELIFS ELSEP { yyerror("en if falta el parentesis de cierre ')'"); }
+    | PRIF PARENI error PAREND NEWLINE BLOQUE ELIFS ELSEP { yyerror("la condicion del if no es valida"); }
+    | PRIF PARENI CONDICION PAREND NEWLINE error { yyerror("despues del if se esperaba un bloque indentado"); }
     ;
 
 ELIFS
@@ -91,9 +82,9 @@ ELIFS
 
 ELIF
     : PRELIF PARENI CONDICION PAREND NEWLINE BLOQUE
-    | PRELIF CONDICION PAREND NEWLINE BLOQUE { yyerror("en elif falta el paréntesis de apertura '('"); }
-    | PRELIF PARENI CONDICION NEWLINE BLOQUE { yyerror("en elif falta el paréntesis de cierre ')'"); }
-    | PRELIF PARENI error PAREND NEWLINE BLOQUE { yyerror("la condición del elif no es válida"); }
+    | PRELIF CONDICION PAREND NEWLINE BLOQUE { yyerror("en elif falta el parentesis de apertura '('"); }
+    | PRELIF PARENI CONDICION NEWLINE BLOQUE { yyerror("en elif falta el parentesis de cierre ')'"); }
+    | PRELIF PARENI error PAREND NEWLINE BLOQUE { yyerror("la condicion del elif no es valida"); }
     ;
 
 ELSEP
@@ -103,29 +94,29 @@ ELSEP
 
 WHILE
     : PRWHILE PARENI CONDICION PAREND NEWLINE BLOQUE
-    | PRWHILE CONDICION PAREND NEWLINE BLOQUE { yyerror("en while falta el paréntesis de apertura '('"); }
-    | PRWHILE PARENI CONDICION NEWLINE BLOQUE { yyerror("en while falta el paréntesis de cierre ')'"); }
-    | PRWHILE PARENI error PAREND NEWLINE BLOQUE { yyerror("la condición del while no es válida"); }
-    | PRWHILE PARENI CONDICION PAREND NEWLINE error { yyerror("después del while se esperaba un bloque indentado"); }
+    | PRWHILE CONDICION PAREND NEWLINE BLOQUE { yyerror("en while falta el parentesis de apertura '('"); }
+    | PRWHILE PARENI CONDICION NEWLINE BLOQUE { yyerror("en while falta el parentesis de cierre ')'"); }
+    | PRWHILE PARENI error PAREND NEWLINE BLOQUE { yyerror("la condicion del while no es valida"); }
+    | PRWHILE PARENI CONDICION PAREND NEWLINE error { yyerror("despues del while se esperaba un bloque indentado"); }
     ;
 
 ENTRADASALIDA
     : PRREAD PARENI ID PAREND
     | PRWRITE PARENI EXPRESION PAREND
     | PRREAD PARENI error PAREND { yyerror("Read solo puede recibir un identificador"); }
-    | PRREAD ID PAREND { yyerror("en Read falta el paréntesis de apertura '('"); }
-    | PRREAD PARENI ID error { yyerror("en Read falta el paréntesis de cierre ')'"); }
-    | PRWRITE PARENI error PAREND { yyerror("Write necesita una expresión válida"); }
-    | PRWRITE EXPRESION PAREND { yyerror("en Write falta el paréntesis de apertura '('"); }
-    | PRWRITE PARENI EXPRESION error { yyerror("en Write falta el paréntesis de cierre ')'"); }
+    | PRREAD ID PAREND { yyerror("en Read falta el parentesis de apertura '('"); }
+    | PRREAD PARENI ID error { yyerror("en Read falta el parentesis de cierre ')'"); }
+    | PRWRITE PARENI error PAREND { yyerror("Write necesita una expresion valida"); }
+    | PRWRITE EXPRESION PAREND { yyerror("en Write falta el parentesis de apertura '('"); }
+    | PRWRITE PARENI EXPRESION error { yyerror("en Write falta el parentesis de cierre ')'"); }
     ;
 
 FUNCION
     : PRDEF ID PARENI PARAMETROS PAREND NEWLINE BLOQUEFUNCION
-    | PRDEF PARENI PARAMETROS PAREND NEWLINE BLOQUEFUNCION { yyerror("después de def se esperaba el nombre de la función"); }
-    | PRDEF ID PARAMETROS PAREND NEWLINE BLOQUEFUNCION { yyerror("en la función falta el paréntesis de apertura '('"); }
-    | PRDEF ID PARENI PARAMETROS NEWLINE BLOQUEFUNCION { yyerror("en la función falta el paréntesis de cierre ')'"); }
-    | PRDEF ID PARENI PARAMETROS PAREND NEWLINE error { yyerror("después de la función se esperaba un bloque indentado"); }
+    | PRDEF PARENI PARAMETROS PAREND NEWLINE BLOQUEFUNCION { yyerror("despues de def se esperaba el nombre de la funcion"); }
+    | PRDEF ID PARAMETROS PAREND NEWLINE BLOQUEFUNCION { yyerror("en la funcion falta el parentesis de apertura '('"); }
+    | PRDEF ID PARENI PARAMETROS NEWLINE BLOQUEFUNCION { yyerror("en la funcion falta el parentesis de cierre ')'"); }
+    | PRDEF ID PARENI PARAMETROS PAREND NEWLINE error { yyerror("despues de la funcion se esperaba un bloque indentado"); }
     ;
 
 PARAMETROS
@@ -136,22 +127,22 @@ PARAMETROS
 PARAMS
     : PARAM
     | PARAMS COMA PARAM
-    | PARAMS COMA error { yyerror("después de la coma se esperaba otro parámetro tipo id"); }
+    | PARAMS COMA error { yyerror("despues de la coma se esperaba otro parametro"); }
     ;
 
 PARAM
     : TIPO ID
-    | TIPO error { yyerror("en el parámetro falta el identificador"); }
+    | TIPO error { yyerror("en el parametro falta el identificador"); }
     ;
 
 RETURN
     : PRRETURN EXPRESION
-    | PRRETURN error { yyerror("return necesita una expresión válida"); }
+    | PRRETURN error { yyerror("return necesita una expresion valida"); }
     ;
 
 BLOQUE
     : INDENT LINEASBLOQUE DEDENT
-    | INDENT DEDENT { yyerror("el bloque no puede estar vacío"); }
+    | INDENT DEDENT { yyerror("el bloque no puede estar vacio"); }
     ;
 
 LINEASBLOQUE
@@ -160,19 +151,17 @@ LINEASBLOQUE
     ;
 
 LINEABLOQUE
-    : SENTENCIABLOQUE NEWLINE
+    : SENTENCIA_SIMPLE NEWLINE
+    | IF
+    | WHILE
+    | RETURN NEWLINE
     | NEWLINE
-    | error NEWLINE { yyerror("sentencia no válida dentro del bloque"); }
-    ;
-
-SENTENCIABLOQUE
-    : SENTENCIA_SIMPLE
-    | RETURN
+    | error NEWLINE { yyerror("sentencia no valida dentro del bloque"); }
     ;
 
 BLOQUEFUNCION
     : INDENT LINEASFUNCION DEDENT
-    | INDENT DEDENT { yyerror("el bloque de la función no puede estar vacío"); }
+    | INDENT DEDENT { yyerror("el bloque de la funcion no puede estar vacio"); }
     ;
 
 LINEASFUNCION
@@ -181,19 +170,17 @@ LINEASFUNCION
     ;
 
 LINEAFUNCION
-    : SENTENCIAFUNCION NEWLINE
+    : SENTENCIA_SIMPLE NEWLINE
+    | IF
+    | WHILE
+    | RETURN NEWLINE
     | NEWLINE
-    | error NEWLINE { yyerror("sentencia no válida dentro de la función"); }
-    ;
-
-SENTENCIAFUNCION
-    : SENTENCIA_SIMPLE
-    | RETURN
+    | error NEWLINE { yyerror("sentencia no valida dentro de la funcion"); }
     ;
 
 LLAMADA
     : ID PARENI ARGUMENTOS PAREND
-    | ID PARENI ARGUMENTOS error { yyerror("en la llamada falta el paréntesis de cierre ')'"); }
+    | ID PARENI ARGUMENTOS error { yyerror("en la llamada falta el parentesis de cierre ')'"); }
     ;
 
 ARGUMENTOS
@@ -204,7 +191,7 @@ ARGUMENTOS
 LISTAARGUMENTOS
     : EXPRESION
     | LISTAARGUMENTOS COMA EXPRESION
-    | LISTAARGUMENTOS COMA error { yyerror("después de la coma se esperaba otro argumento"); }
+    | LISTAARGUMENTOS COMA error { yyerror("despues de la coma se esperaba otro argumento"); }
     ;
 
 CONDICION
@@ -263,8 +250,8 @@ PRIMARIA
     | DATO
     | LLAMADA
     | PARENI EXPRESION PAREND
-    | PARENI EXPRESION error { yyerror("en la expresión falta el paréntesis de cierre ')'"); }
-    | PARENI error PAREND { yyerror("expresión inválida dentro de paréntesis"); }
+    | PARENI EXPRESION error { yyerror("en la expresion falta el parentesis de cierre ')'"); }
+    | PARENI error PAREND { yyerror("expresion invalida dentro de parentesis"); }
     ;
 
 %%
@@ -287,7 +274,7 @@ public void yyerror(string mensaje)
 {
     if (string.IsNullOrWhiteSpace(mensaje))
     {
-        mensaje = "error sintáctico";
+        mensaje = "error sintactico";
     }
 
     control.AgregarError(mensaje);
