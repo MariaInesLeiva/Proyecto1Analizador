@@ -2,3 +2,5 @@
 [Ob]j/
 .vs/
 *.user
+bin/
+obj/
