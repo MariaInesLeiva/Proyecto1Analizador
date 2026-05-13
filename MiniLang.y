@@ -35,12 +35,18 @@ LINEAS
 
 LINEA
     : SENTENCIA_SIMPLE NEWLINE
-    | ENCABEZADO_CONTROL NEWLINE
+    | PRIF PARENI EXPRESION PAREND NEWLINE
+    | PRWHILE PARENI EXPRESION PAREND NEWLINE
+    | PRELSE NEWLINE
     | FUNCION
     | RETURN NEWLINE
     | INDENT
     | DEDENT
     | NEWLINE
+    | PRIF EXPRESION PAREND NEWLINE { yyerror("en if falta el parentesis de apertura '('"); }
+    | PRIF PARENI EXPRESION NEWLINE { yyerror("en if falta el parentesis de cierre ')'"); }
+    | PRWHILE EXPRESION PAREND NEWLINE { yyerror("en while falta el parentesis de apertura '('"); }
+    | PRWHILE PARENI EXPRESION NEWLINE { yyerror("en while falta el parentesis de cierre ')'"); }
     | ERROR NEWLINE { yyerror("token lexico invalido dentro de la sentencia"); }
     | error NEWLINE { yyerror("sentencia no valida o incompleta"); }
     ;
@@ -50,12 +56,6 @@ SENTENCIA_SIMPLE
     | ASIGNACION
     | ENTRADASALIDA
     | LLAMADA
-    ;
-
-ENCABEZADO_CONTROL
-    : IF_SIMPLE
-    | ELSE_SIMPLE
-    | WHILE_SIMPLE
     ;
 
 TIPO
@@ -82,24 +82,6 @@ DECLARACION
 ASIGNACION
     : ID IGUAL EXPRESION
     | ID IGUAL error { yyerror("despues de '=' se esperaba una expresion valida"); }
-    ;
-
-IF_SIMPLE
-    : PRIF PARENI CONDICION PAREND
-    | PRIF CONDICION PAREND { yyerror("en if falta el parentesis de apertura '('"); }
-    | PRIF PARENI CONDICION { yyerror("en if falta el parentesis de cierre ')'"); }
-    | PRIF PARENI error PAREND { yyerror("la condicion del if no es valida"); }
-    ;
-
-ELSE_SIMPLE
-    : PRELSE
-    ;
-
-WHILE_SIMPLE
-    : PRWHILE PARENI CONDICION PAREND
-    | PRWHILE CONDICION PAREND { yyerror("en while falta el parentesis de apertura '('"); }
-    | PRWHILE PARENI CONDICION { yyerror("en while falta el parentesis de cierre ')'"); }
-    | PRWHILE PARENI error PAREND { yyerror("la condicion del while no es valida"); }
     ;
 
 FUNCION
@@ -142,11 +124,17 @@ LINEASFUNCION
 
 LINEAFUNCION
     : SENTENCIA_SIMPLE NEWLINE
-    | ENCABEZADO_CONTROL NEWLINE
+    | PRIF PARENI EXPRESION PAREND NEWLINE
+    | PRWHILE PARENI EXPRESION PAREND NEWLINE
+    | PRELSE NEWLINE
     | RETURN NEWLINE
     | INDENT
     | DEDENT
     | NEWLINE
+    | PRIF EXPRESION PAREND NEWLINE { yyerror("en if falta el parentesis de apertura '('"); }
+    | PRIF PARENI EXPRESION NEWLINE { yyerror("en if falta el parentesis de cierre ')'"); }
+    | PRWHILE EXPRESION PAREND NEWLINE { yyerror("en while falta el parentesis de apertura '('"); }
+    | PRWHILE PARENI EXPRESION NEWLINE { yyerror("en while falta el parentesis de cierre ')'"); }
     | ERROR NEWLINE { yyerror("token lexico invalido dentro de la funcion"); }
     | error NEWLINE { yyerror("sentencia no valida dentro de la funcion"); }
     ;
@@ -176,10 +164,6 @@ LISTAARGUMENTOS
     : EXPRESION
     | LISTAARGUMENTOS COMA EXPRESION
     | LISTAARGUMENTOS COMA error { yyerror("despues de la coma se esperaba otro argumento"); }
-    ;
-
-CONDICION
-    : EXPRESION
     ;
 
 EXPRESION
