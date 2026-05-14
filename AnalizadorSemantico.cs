@@ -33,6 +33,10 @@ namespace Proyecto1Analizador
                 if(actual.Tipo == TipoToken.PRDEF)
                 {
                     ProcesarFuncion(i);
+                    while (i < tokens.Count && tokens[i].Tipo != TipoToken.NEWLINE)
+                    {
+                        i++;
+                    }
                     continue;
                 }
 
@@ -316,9 +320,23 @@ namespace Proyecto1Analizador
             {
                 if (EsDeclaracion(tokens[i]) && i+1 < tokens.Count && tokens[i+1].Tipo == TipoToken.ID)
                 {
-                    parametros.Add(ObtenerTipoDeclaracion(tokens[i].Tipo));
+                    string tipoParametro = ObtenerTipoDeclaracion(tokens[i].Tipo);
+                    Token idParametro = tokens[i+1];
+
+                    parametros.Add(tipoParametro);
+                    if(!tablaSimbolos.Any(s=> s.Nombre == idParametro.Lexema))
+                    {
+                        tablaSimbolos.Add(new Simbolo
+                        {
+                            Nombre = idParametro.Lexema,
+                            Tipo = tipoParametro,
+                            Categoria = "parametro",
+                            Valor = null,
+                            Linea = idParametro.Linea,
+                            Columna = idParametro.ColumnaI
+                        });
+                    }
                 }
-                i++;
             }
 
             tablaSimbolos.Add(new Simbolo
