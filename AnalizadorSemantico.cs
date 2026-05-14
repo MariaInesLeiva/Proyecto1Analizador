@@ -30,14 +30,30 @@ namespace Proyecto1Analizador
                 if(actual.Tipo==TipoToken.FP)
                 break;
 
+                if(actual.Tipo == TipoToken.PRDEF)
+                {
+                    ProcesarFuncion(i);
+                    continue;
+                }
+
                 if (EsDeclaracion(actual))
                 {
                     ProcesarDeclaracion(i);
                 }
-
-                if (actual.Tipo == TipoToken.ID && tokens[i+1].Tipo == TipoToken.IGUAL)
+                if (actual.Tipo == TipoToken.ID)
                 {
-                    ProcesarAsignacion(i);
+                    if(i+1 < tokens.Count && tokens[i+1].Tipo == TipoToken.PARENI)
+                    {
+                        ProcesarLlamadaFuncion(i);
+                    }
+                    else
+                    {
+                        ValidarUsoVariable(actual);
+                        if(i+1< tokens.Count && tokens[i+1].Tipo == TipoToken.IGUAL)
+                        {
+                            ProcesarAsignacion(i);
+                        }
+                    }
                 }
                 
             }
@@ -276,6 +292,91 @@ namespace Proyecto1Analizador
             return expresion[0].Lexema;
 
             return string.Join(" ", expresion.Select(t => t.Lexema));
+        }
+        private void ProcesarFuncion(int indice)
+        {
+            if(indice+1 >= tokens.Count)
+            return;
+            Token nombreFuncion = tokens[indice+1];
+
+            if(nombreFuncion.Tipo != TipoToken.ID)
+            return;
+
+            if (tablaSimbolos.Any(s => s.Nombre == nombreFuncion.Lexema))
+            {
+                errores.Add($"Línea {nombreFuncion.Linea}, columna {nombreFuncion.ColumnaI}: Error función '{nombreFuncion.Lexema}' ya declarada");
+                return;
+            }
+
+             List<string> parametros = new List<string>();
+
+            int i = indice + 2;
+
+            while(i< tokens.Count && tokens[i].Tipo != TipoToken.PAREND)
+            {
+                if (EsDeclaracion(tokens[i]) && i+1 < tokens.Count && tokens[i+1].Tipo == TipoToken.ID)
+                {
+                    parametros.Add(ObtenerTipoDeclaracion(tokens[i].Tipo));
+                }
+                i++;
+            }
+
+            tablaSimbolos.Add(new Simbolo
+            {
+                Nombre= nombreFuncion.Lexema,
+                Tipo = "funcion",
+                Categoria = "funcion",
+                Parametros = parametros,
+                Valor = null,
+                Linea = nombreFuncion.Linea,
+                Columna = nombreFuncion.ColumnaI
+            });
+        }
+
+        private void ProcesarLlamadaFuncion(int indice)
+        {
+            Token nombreFuncion = tokens[indice];
+            Simbolo? funcion = tablaSimbolos.FirstOrDefault( s=> s.Nombre == nombreFuncion.Lexema && s.Categoria == "funcion");
+            if (funcion == null)
+            {
+                errores.Add($"Línea {nombreFuncion.Linea}, columna {nombreFuncion.ColumnaI}: Error función '{nombreFuncion.Lexema}' no declarada");
+                return;
+            }
+            List<Token> argumentos = ObtenerArgumentos(indice+2);
+
+            if(argumentos.Count != funcion.Parametros.Count)
+            {
+                errores.Add($"Línea{nombreFuncion.Linea}, columna {nombreFuncion.ColumnaI}: Errore cantidad incorrecta de argumentos para función '{nombreFuncion.Lexema}'");
+                return;
+            }
+            for(int i = 0; i<argumentos.Count; i++)
+            {
+                string tipoArgumento=ObtenerTipoToken(argumentos[i]);
+                string tipoParametro = funcion.Parametros[i];
+
+                if(!TiposCompatibles(tipoParametro, tipoArgumento))
+                {
+                    errores.Add($"Línes {argumentos[i].Linea}, columna {argumentos[i].ColumnaI}: Errore Argumento para la funcion {nombreFuncion.Lexema} es invalido");
+                    return;
+                }
+            }
+        }
+        private List<Token> ObtenerArgumentos(int inicio)
+        {
+            List<Token> argumentos = new List<Token>();
+            for (int i = inicio; i<tokens.Count; i++)
+            {
+                Token actual = tokens[i];
+
+                if(actual.Tipo == TipoToken.PAREND)
+                break;
+
+                if (actual.Tipo == TipoToken.COMA)
+                continue;
+
+                 argumentos.Add(actual);
+            }
+            return argumentos;
         }
 
         public void MostrarErrores()
