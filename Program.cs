@@ -96,6 +96,20 @@ namespace Proyecto1Analizador
                 Interfaz.MostrarErrores(lexer.Errores);
             }
 
+            if(!hayLexicos && !haySintacticos)
+            {
+                AnalizadorSemantico semantico = new AnalizadorSemantico(tokens);
+                semantico.Analizar();
+                semantico.MostrarErrores();
+                semantico.MostrarTabla();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("\nNo se ejecutó el análisis semántico porque hay errores léxicos o sintácticos");
+                Console.ResetColor();
+            }
+
             // Mostramos en la consola las animaciones 
             Interfaz.MostrarTokens(tokens);
 
