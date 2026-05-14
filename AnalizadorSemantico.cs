@@ -371,8 +371,15 @@ namespace Proyecto1Analizador
                 if(actual.Tipo == TipoToken.PAREND)
                 break;
 
-                if (actual.Tipo == TipoToken.COMA)
+                if (actual.Tipo == TipoToken.COMA ||
+                    actual.Tipo == TipoToken.NEWLINE ||
+                    actual.Tipo == TipoToken.INDENT ||
+                    actual.Tipo == TipoToken.DEDENT)
+                {
+                
                 continue;
+                    
+                }
 
                  argumentos.Add(actual);
             }
