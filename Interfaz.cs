@@ -10,6 +10,7 @@ namespace Proyecto1Analizador
         {
             MostrarAnimacion("-----------------------------ANALIZADOR LÉXICO-----------------------------", ConsoleColor.Blue);
             Console.WriteLine();
+
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("-----------------------TOKENS-----------------------");
             Console.WriteLine();
@@ -30,7 +31,12 @@ namespace Proyecto1Analizador
                 Console.ResetColor();
 
                 string lex = (t.Lexema ?? "").Replace("\t", "\\t");
-                if (lex.Length > 18) lex = lex.Substring(0, 15) + "...";
+
+                if (lex.Length > 18)
+                {
+                    lex = lex.Substring(0, 15) + "...";
+                }
+
                 lex = lex.PadRight(20);
 
                 Console.WriteLine(
@@ -70,6 +76,7 @@ namespace Proyecto1Analizador
 
             Console.WriteLine();
         }
+
         public static void MostrarErroresSintacticos(List<string> errores)
         {
             MostrarAnimacion("---------------------------ANALIZADOR SINTÁCTICO---------------------------", ConsoleColor.Green);
@@ -91,26 +98,45 @@ namespace Proyecto1Analizador
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write((i + 1).ToString().PadRight(5));
                 Console.ResetColor();
+
                 Console.WriteLine(errores[i]);
             }
 
             Console.WriteLine();
         }
 
+        public static void MostrarTituloSemantico()
+        {
+            MostrarAnimacion("---------------------------ANALIZADOR SEMÁNTICO---------------------------", ConsoleColor.Magenta);
+            Console.WriteLine();
+        }
+
         private static void PonerColor(string tipo)
         {
             if (tipo == TipoToken.ERROR)
+            {
                 Console.ForegroundColor = ConsoleColor.Red;
+            }
             else if (tipo == TipoToken.ID)
+            {
                 Console.ForegroundColor = ConsoleColor.Cyan;
+            }
             else if (tipo == TipoToken.INT || tipo == TipoToken.FLOAT)
+            {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-            else if (tipo != null && tipo.StartsWith("PR")) 
+            }
+            else if (tipo != null && tipo.StartsWith("PR"))
+            {
                 Console.ForegroundColor = ConsoleColor.Green;
+            }
             else if (tipo == TipoToken.NEWLINE || tipo == TipoToken.INDENT || tipo == TipoToken.DEDENT)
+            {
                 Console.ForegroundColor = ConsoleColor.DarkGray;
+            }
             else
-                Console.ForegroundColor = ConsoleColor.White; 
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
 
         private static void MostrarAnimacion(string texto, ConsoleColor color)
@@ -120,11 +146,11 @@ namespace Proyecto1Analizador
             foreach (char c in texto)
             {
                 Console.Write(c);
-                Thread.Sleep(120); 
+                Thread.Sleep(20);
             }
 
             Console.ResetColor();
-            Console.WriteLine(); 
+            Console.WriteLine();
         }
     }
 }

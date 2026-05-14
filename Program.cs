@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.Marshalling;
 
 namespace Proyecto1Analizador
 {
@@ -9,14 +8,11 @@ namespace Proyecto1Analizador
     {
         static void Main(string[] args)
         {
-            // Guardamos la ruta del archivo de entrada
             string rutaEntrada = "";
 
-            // Lo pedimos en consola
             Console.Write("Ingrese la ruta del archivo de entrada: ");
             rutaEntrada = Console.ReadLine() ?? "";
 
-            // Validaciones
             if (string.IsNullOrWhiteSpace(rutaEntrada))
             {
                 Console.WriteLine("No se cargó ningún archivo");
@@ -29,15 +25,14 @@ namespace Proyecto1Analizador
                 return;
             }
 
-            // Solo aceptamos archivos .mlng
             if (Path.GetExtension(rutaEntrada).ToLower() != ".mlng")
             {
                 Console.WriteLine("El archivo debe ser .mlng");
                 return;
             }
 
-            // Leemos lo que está en el archivo
             string codigo = "";
+
             try
             {
                 codigo = File.ReadAllText(rutaEntrada);
@@ -48,26 +43,43 @@ namespace Proyecto1Analizador
                 return;
             }
 
-            // Creamos el lexer y tokenizamos el código
             Lexer lexer = new Lexer(codigo);
             List<Token> tokens = lexer.Tokenizar();
+
+            bool hayLexicos = lexer.Errores.Count > 0;
+
+            Interfaz.MostrarTokens(tokens);
+
+            if (hayLexicos)
+            {
+                Interfaz.MostrarErrores(lexer.Errores);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("OK");
+                Console.WriteLine("No se encontraron errores léxicos");
+                Console.ResetColor();
+            }
 
             ControlSintactico control = new ControlSintactico();
             LectorTokens lector = new LectorTokens(tokens, control);
             Parser parser = new Parser(lector, control);
 
             bool resultadoParse = false;
+
             try
             {
-                resultadoParse=parser.Parse();
+                resultadoParse = parser.Parse();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 control.AgregarError("Error en el análisis: " + ex.Message);
             }
-            if(!resultadoParse && control.errores.Count == 0)
+
+            if (!resultadoParse && control.errores.Count == 0)
             {
-                if(control.tokenActual != null)
+                if (control.tokenActual != null)
                 {
                     control.AgregarError("estructura incompleta cerca de '" + control.tokenActual.Lexema + "'");
                 }
@@ -77,10 +89,8 @@ namespace Proyecto1Analizador
                 }
             }
 
-            bool hayLexicos = lexer.Errores.Count > 0; //valida los errores léxicos
-            bool haySintacticos = control.errores.Count >0; //valida los errores sintácticos
+            bool haySintacticos = control.errores.Count > 0;
 
-            // Mostramos primero la parte sintáctica
             Interfaz.MostrarErroresSintacticos(control.errores);
 
             if (!haySintacticos)
@@ -91,12 +101,9 @@ namespace Proyecto1Analizador
                 Console.ResetColor();
             }
 
-            if (hayLexicos)
-            {
-                Interfaz.MostrarErrores(lexer.Errores);
-            }
+            Interfaz.MostrarTituloSemantico();
 
-            if(!hayLexicos && !haySintacticos)
+            if (!hayLexicos && !haySintacticos)
             {
                 AnalizadorSemantico semantico = new AnalizadorSemantico(tokens);
                 semantico.Analizar();
@@ -110,15 +117,10 @@ namespace Proyecto1Analizador
                 Console.ResetColor();
             }
 
-            // Mostramos en la consola las animaciones 
-            Interfaz.MostrarTokens(tokens);
-
-            // Creamos la ruta de salida .out
             string rutaSalida = Path.ChangeExtension(rutaEntrada, ".out");
 
             try
             {
-                // Escribimos los tokens en el archivo de salida
                 using (StreamWriter writer = new StreamWriter(rutaSalida))
                 {
                     for (int i = 0; i < tokens.Count; i++)
