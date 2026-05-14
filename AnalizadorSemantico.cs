@@ -337,6 +337,7 @@ namespace Proyecto1Analizador
                         });
                     }
                 }
+                i++;
             }
 
             tablaSimbolos.Add(new Simbolo
