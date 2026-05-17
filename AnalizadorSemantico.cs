@@ -477,7 +477,7 @@ namespace Proyecto1Analizador
     
         }
 
-        public void ExportarTabla(string rutaOriginal)
+        public string ExportarTabla(string rutaOriginal)
         {
             string carpeta = Path.GetDirectoryName(rutaOriginal)!;
             string nombre = Path.GetFileNameWithoutExtension(rutaOriginal);
@@ -513,6 +513,8 @@ namespace Proyecto1Analizador
                     );
                 }
             }
-}
+
+            return rutaTabla;
+        }
     }
 }

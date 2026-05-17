@@ -102,6 +102,7 @@ namespace Proyecto1Analizador
             }
 
             Interfaz.MostrarTituloSemantico();
+            string rutaTabla = "";
 
             if (!hayLexicos && !haySintacticos)
             {
@@ -109,7 +110,8 @@ namespace Proyecto1Analizador
                 semantico.Analizar();
                 semantico.MostrarErrores();
                 semantico.MostrarTabla();
-                semantico.ExportarTabla(rutaEntrada);
+
+                rutaTabla = semantico.ExportarTabla(rutaEntrada);
             }
             else
             {
@@ -117,6 +119,7 @@ namespace Proyecto1Analizador
                 Console.WriteLine("\nNo se ejecutó el análisis semántico porque hay errores léxicos o sintácticos");
                 Console.ResetColor();
             }
+
 
             string rutaSalida = Path.ChangeExtension(rutaEntrada, ".out");
 
