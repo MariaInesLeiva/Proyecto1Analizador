@@ -1,4 +1,4 @@
-Proyecto Fase 1 – Analizador Léxico
+Proyecto Fase 1 – Analizador Sintactico
 
 María Inés Leiva Casiano - 1089524
 Jennifer Fernanda Turcios Estrada - 1088724

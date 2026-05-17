@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization.Formatters;
+using System.IO;
 
 namespace Proyecto1Analizador
 {
@@ -44,6 +45,12 @@ namespace Proyecto1Analizador
                 {
                     ProcesarDeclaracion(i);
                 }
+
+                if(actual.Tipo == TipoToken.PRIF || actual.Tipo == TipoToken.PRWHILE)
+                {
+                    ValidarCondicionBool(i);
+                }
+
                 if (actual.Tipo == TipoToken.ID)
                 {
                     if(i+1 < tokens.Count && tokens[i+1].Tipo == TipoToken.PARENI)
@@ -63,7 +70,28 @@ namespace Proyecto1Analizador
             }
         }
     
+    private void ValidarCondicionBool(int indice)
+    {
+        int inicio = indice + 2;
 
+        List<Token> condicion = new List<Token>();
+
+        while(inicio < tokens.Count && tokens[inicio].Tipo != TipoToken.PAREND)
+        {
+            condicion.Add(tokens[inicio]);
+            inicio++;
+        }
+
+        string tipoCondicion = EvaluarTipoExpresion(condicion);
+
+        if(tipoCondicion != "bool")
+        {
+            errores.Add(
+                $"Línea {tokens[indice].Linea}, columna {tokens[indice].ColumnaI}: " +
+                $"Error la condición debe ser de tipo 'bool'"
+            );
+        }
+    }
     private bool EsDeclaracion(Token token)
         {
             return  token.Tipo==TipoToken.PRINT ||
@@ -171,11 +199,11 @@ namespace Proyecto1Analizador
 
                 string tipoToken = ObtenerTipoToken(token);
 
-                if(tipoToken == "desconcodio")
+                if(tipoToken == "desconcido")
                 continue;
 
                 if(tipoToken == "error")
-                return "eeror";
+                return "error";
 
                 if (tipoActual == "")
                 {
@@ -448,5 +476,43 @@ namespace Proyecto1Analizador
             }
     
         }
+
+        public void ExportarTabla(string rutaOriginal)
+        {
+            string carpeta = Path.GetDirectoryName(rutaOriginal)!;
+            string nombre = Path.GetFileNameWithoutExtension(rutaOriginal);
+
+            string rutaTabla = Path.Combine(
+                carpeta,
+                $"tabla{nombre}.out"
+            );
+
+            using(StreamWriter writer = new StreamWriter(rutaTabla))
+            {
+                writer.WriteLine("-------------TABLA DE SÍMBOLOS-------------");
+                writer.WriteLine();
+
+                writer.WriteLine(
+                    "Nombre".PadRight(20) +
+                    "TIPO".PadRight(15) +
+                    "VALOR".PadRight(25) +
+                    "LÍNEA".PadRight(10) +
+                    "COLUMNA"
+                );
+
+                writer.WriteLine(new string('-', 80));
+
+                foreach(Simbolo simbolo in tablaSimbolos)
+                {
+                    writer.WriteLine(
+                        simbolo.Nombre.PadRight(20) +
+                        simbolo.Tipo.PadRight(15) +
+                        (simbolo.Valor?.ToString() ?? "null").PadRight(25) +
+                        simbolo.Linea.ToString().PadRight(10) +
+                        simbolo.Columna
+                    );
+                }
+            }
+}
     }
 }

@@ -109,6 +109,7 @@ namespace Proyecto1Analizador
                 semantico.Analizar();
                 semantico.MostrarErrores();
                 semantico.MostrarTabla();
+                semantico.ExportarTabla(rutaEntrada);
             }
             else
             {

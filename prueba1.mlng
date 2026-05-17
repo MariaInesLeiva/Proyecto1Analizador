@@ -1,1 +1,31 @@
-Write("Hola Mundo")
+int edad
+float promedio
+bool activo
+char nombre
+
+edad = true
+promedio = nombre
+activo = 25
+
+x = 10
+
+int edad
+
+edad = promedio + activo
+
+if (edad)
+    Write(edad)
+
+while (nombre)
+    edad = edad + 1
+
+def suma(int a, int b)
+    int resultado
+    resultado = a + b
+    return resultado
+
+suma(5)
+
+suma(5, true)
+
+Write(variableNoDeclarada)
