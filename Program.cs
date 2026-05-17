@@ -134,6 +134,11 @@ namespace Proyecto1Analizador
                 }
 
                 Console.WriteLine("Archivo creado: " + rutaSalida);
+
+                if (rutaTabla != "")
+                {
+                    Console.WriteLine("Archivo creado: " + rutaTabla);
+                }
             }
             catch (Exception ex)
             {
