@@ -1,0 +1,8 @@
+-------------TABLA DE SÍMBOLOS-------------
+
+Nombre              TIPO           VALOR                    LÍNEA     COLUMNA
+--------------------------------------------------------------------------------
+contador            int            contador + 1             1         5
+limite              int            5                        2         5
+suma                int            suma + contador          3         5
+continuar           bool           false                    4         6

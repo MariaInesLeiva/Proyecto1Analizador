@@ -1,0 +1,7 @@
+int a
+int b
+int resultado
+a = 2 * 15
+b = 10 + 5
+resultado = a + b
+Write(resultado)

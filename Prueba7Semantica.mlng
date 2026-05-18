@@ -1,0 +1,4 @@
+int edad
+edad = 18
+if (edad > 10
+    Write(edad)

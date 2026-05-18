@@ -1,0 +1,8 @@
+int edad
+bool mayor
+Read(edad)
+mayor = true
+if (mayor)
+    Write(edad)
+else
+    Write(0)

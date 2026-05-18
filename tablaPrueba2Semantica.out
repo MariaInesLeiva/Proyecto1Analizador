@@ -1,0 +1,7 @@
+-------------TABLA DE SÍMBOLOS-------------
+
+Nombre              TIPO           VALOR                    LÍNEA     COLUMNA
+--------------------------------------------------------------------------------
+a                   int            30                       1         5
+b                   int            15                       2         5
+resultado           int            a + b                    3         5

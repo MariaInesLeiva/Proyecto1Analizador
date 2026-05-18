@@ -1,0 +1,13 @@
+int edad
+float promedio
+bool activo
+char nombre
+edad = true
+promedio = nombre
+activo = 25
+x = 10
+int edad
+edad = promedio + activo
+if (edad)
+    Write(edad)
+Write(variableNoDeclarada)

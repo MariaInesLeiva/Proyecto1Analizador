@@ -1,0 +1,15 @@
+int contador
+int limite
+int suma
+bool continuar
+contador = 0
+limite = 5
+suma = 0
+continuar = true
+Read(limite)
+while (continuar)
+    suma = suma + contador
+    contador = contador + 1
+    Write(suma)
+continuar = false
+Write(suma)

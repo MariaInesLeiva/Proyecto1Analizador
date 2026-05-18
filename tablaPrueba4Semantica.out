@@ -1,0 +1,11 @@
+-------------TABLA DE SÍMBOLOS-------------
+
+Nombre              TIPO           VALOR                    LÍNEA     COLUMNA
+--------------------------------------------------------------------------------
+a                   int            null                     1         14
+b                   int            null                     1         21
+suma                funcion        null                     1         5
+resultado           int            a + b                    2         9
+x                   int            10                       6         5
+y                   int            20                       7         5
+total               int            30                       8         5

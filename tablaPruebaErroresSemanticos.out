@@ -1,0 +1,12 @@
+-------------TABLA DE SÍMBOLOS-------------
+
+Nombre              TIPO           VALOR                    LÍNEA     COLUMNA
+--------------------------------------------------------------------------------
+edad                int            edad + 1                 1         5
+promedio            float          null                     2         7
+activo              bool           null                     3         6
+nombre              char           null                     4         6
+a                   int            null                     22        14
+b                   int            null                     22        21
+suma                funcion        null                     22        5
+resultado           int            a + b                    23        9

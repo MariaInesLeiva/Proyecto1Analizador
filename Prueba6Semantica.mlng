@@ -1,0 +1,4 @@
+int edad
+edad = 20
+Write(edad)
+@

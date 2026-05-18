@@ -1,0 +1,13 @@
+def suma(int a, int b)
+    int resultado
+    resultado = a + b
+    return resultado
+
+int x
+int y
+int total
+x = 10
+y = 20
+total = 30
+suma(x, y)
+Write(total)
